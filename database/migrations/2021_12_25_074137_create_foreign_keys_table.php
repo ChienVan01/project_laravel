@@ -13,6 +13,20 @@ class CreateForeignKeysTable extends Migration
      */
     public function up()
     {
+        Schema::table('notifies', function (Blueprint $table) {                      
+            $table->foreign('User_id')->references('id')->on('users');      
+        });
+        Schema::table('comments', function (Blueprint $table) {                      
+            $table->foreign('User_id')->references('id')->on('users');  
+            $table->foreign('Product_id')->references('id')->on('products');    
+        });
+        Schema::table('user_reset_passwords', function (Blueprint $table) {                      
+            $table->foreign('User_id')->references('id')->on('users');      
+        });
+        Schema::table('user_activations', function (Blueprint $table) {                      
+            $table->foreign('User_id')->references('id')->on('users');      
+        });
+        
         Schema::table('orders', function (Blueprint $table) {       
             $table->foreign('Payment_id')->references('id')->on('payments');     
             $table->foreign('User_id')->references('id')->on('users');      
