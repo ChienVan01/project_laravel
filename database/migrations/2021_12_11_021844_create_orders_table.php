@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('Payment_id');
             $table->unsignedBigInteger('User_id');
             $table->unsignedBigInteger('Voucher_id');
+            $table->unsignedBigInteger('OrderStatus_id');
             $table->date('TimeBuy');
             $table->Decimal('TotalPrice');
             $table->integer('Status');
