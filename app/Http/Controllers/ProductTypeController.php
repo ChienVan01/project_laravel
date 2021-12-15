@@ -7,11 +7,19 @@ use Illuminate\Http\Request;
 
 class ProductTypeController extends Controller
 {
+
+    public function getAllProductType()
+    {
+        $response =  ProductType::all();
+        return response()->json($response, 200);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //

@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SanPham;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class SanPhamController extends Controller
+class ProductController extends Controller
 {
+
+    public function getAllProduct()
+    {
+        $response = Product::all();
+        return response()->json($response, 200);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,10 +47,10 @@ class SanPhamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SanPham  $sanPham
+     * @param  \App\Models\Product  $Product
      * @return \Illuminate\Http\Response
      */
-    public function show(SanPham $sanPham)
+    public function show(Product $Product)
     {
         //
     }
@@ -52,10 +58,10 @@ class SanPhamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SanPham  $sanPham
+     * @param  \App\Models\Product  $Product
      * @return \Illuminate\Http\Response
      */
-    public function edit(SanPham $sanPham)
+    public function edit(Product $Product)
     {
         //
     }
@@ -64,10 +70,10 @@ class SanPhamController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SanPham  $sanPham
+     * @param  \App\Models\Product  $Product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SanPham $sanPham)
+    public function update(Request $request, Product $Product)
     {
         //
     }
@@ -75,10 +81,10 @@ class SanPhamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SanPham  $sanPham
+     * @param  \App\Models\Product  $Product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SanPham $sanPham)
+    public function destroy(Product $Product)
     {
         //
     }

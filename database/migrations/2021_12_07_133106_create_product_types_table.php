@@ -16,7 +16,7 @@ class CreateProductTypesTable extends Migration
         Schema::create('product_types', function (Blueprint $table) {
             $table->id();
             $table->string('Name');
-            $table->unsignedBigInteger('Parent_id');
+            $table->unsignedBigInteger('Parent_id')->nullable();
             $table->boolean('Status');
             $table->timestamps();
         });
