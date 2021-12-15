@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
 use App\Models\ProductType;
@@ -34,3 +37,17 @@ Route::prefix('product')->group(function () {
 Route::prefix('product_type')->group(function () {
     Route::get('/', [ProductTypeController::class, 'getAllProductType']);
 });
+
+Route::prefix('order')->group(function () {
+    Route::get('/', [OrderController::class, 'getAllOrder']);
+    Route::get('/status', [OrderController::class, 'getAllOrderStatus']);
+});
+
+Route::prefix('payment')->group(function () {
+    Route::get('/', [PaymentController::class, 'getAllPayment']);
+});
+
+Route::prefix('delivery_method')->group(function () {
+    Route::get('/', [DeliveryController::class, 'getAllDeliveryMethod']);
+});
+
