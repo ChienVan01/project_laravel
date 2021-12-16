@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class ConfigurationSeeder extends Seeder
+class DeliveryMethodSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,5 +14,8 @@ class ConfigurationSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('delivery_methods')->insert([
+            ['Name' => 'COD']
+        ]);
     }
 }

@@ -13,23 +13,23 @@ class CreateForeignKeysTable extends Migration
      */
     public function up()
     {
-        Schema::table('notifies', function (Blueprint $table) {                      
-            $table->foreign('User_id')->references('id')->on('users');      
+        Schema::table('notifies', function (Blueprint $table) {
+            $table->foreign('User_id')->references('id')->on('users');
         });
-        Schema::table('comments', function (Blueprint $table) {                      
-            $table->foreign('User_id')->references('id')->on('users');  
-            $table->foreign('Product_id')->references('id')->on('products');    
+        Schema::table('comments', function (Blueprint $table) {
+            $table->foreign('User_id')->references('id')->on('users');
+            $table->foreign('Product_id')->references('id')->on('products');
         });
-        Schema::table('user_reset_passwords', function (Blueprint $table) {                      
-            $table->foreign('User_id')->references('id')->on('users');      
+        Schema::table('user_reset_passwords', function (Blueprint $table) {
+            $table->foreign('User_id')->references('id')->on('users');
         });
-        Schema::table('user_activations', function (Blueprint $table) {                      
-            $table->foreign('User_id')->references('id')->on('users');      
+        Schema::table('user_activations', function (Blueprint $table) {
+            $table->foreign('User_id')->references('id')->on('users');
         });
-        
-        Schema::table('orders', function (Blueprint $table) {       
-            $table->foreign('Payment_id')->references('id')->on('payments');     
-            $table->foreign('User_id')->references('id')->on('users');      
+
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('Payment_id')->references('id')->on('payments');
+            $table->foreign('User_id')->references('id')->on('users');
             $table->foreign('Voucher_id')->references('id')->on('vouchers');
             $table->foreign('OrderStatus_id')->references('id')->on('order_statuses');
         });
@@ -50,7 +50,9 @@ class CreateForeignKeysTable extends Migration
             $table->foreign('ProductType_id')->references('id')->on('product_types');
             $table->foreign('Configuration_id')->references('id')->on('configurations');
         });
-        
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('UserType_id')->references('id')->on('user_types');
+        });
     }
 
     /**

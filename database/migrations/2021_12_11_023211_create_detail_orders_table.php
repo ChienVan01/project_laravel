@@ -20,6 +20,7 @@ class CreateDetailOrdersTable extends Migration
             $table->Decimal('UnitPrice');
             $table->Decimal('IntoMoney');
             $table->integer('Quantity');
+            $table->boolean('Status')->default(1);
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             $table->string('Evaluate');
             $table->unsignedBigInteger('Product_id');
             $table->unsignedBigInteger('User_id');
-            $table->boolean('Status');
+            $table->boolean('Status')->default(1);
             $table->timestamps();
         });
     }

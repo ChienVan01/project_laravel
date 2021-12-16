@@ -19,8 +19,8 @@ class CreateNotifiesTable extends Migration
             $table->unsignedBigInteger('User_id');
             $table->date('ReceivedDate');
             $table->string('Content');
-            $table->boolean('Status');
-            $table->timestamps();           
+            $table->boolean('Status')->default(1);
+            $table->timestamps();
         });
     }
 

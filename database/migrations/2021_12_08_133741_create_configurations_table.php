@@ -16,8 +16,7 @@ class CreateConfigurationsTable extends Migration
         Schema::create('configurations', function (Blueprint $table) {
             $table->id();
             $table->string('Name');
-            $table->string('KeyName');
-            $table->boolean('Status');
+            $table->boolean('Status')->default(1);
             $table->timestamps();
         });
     }

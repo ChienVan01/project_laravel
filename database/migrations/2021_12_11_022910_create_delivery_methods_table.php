@@ -16,7 +16,7 @@ class CreateDeliveryMethodsTable extends Migration
         Schema::create('delivery_methods', function (Blueprint $table) {
             $table->id();
             $table->string('Name');
-            $table->boolean('Status');
+            $table->boolean('Status')->default(1);
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class CreateProductImageTable extends Migration
             $table->id();
             $table->string('Image');
             $table->unsignedBigInteger('Product_id');
-            $table->boolean('Status');
+            $table->boolean('Status')->default(1);
             $table->timestamps();
         });
     }

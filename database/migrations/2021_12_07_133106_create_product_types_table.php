@@ -17,7 +17,7 @@ class CreateProductTypesTable extends Migration
             $table->id();
             $table->string('Name');
             $table->unsignedBigInteger('Parent_id')->nullable();
-            $table->boolean('Status');
+            $table->boolean('Status')->default(1);
             $table->timestamps();
         });
     }
