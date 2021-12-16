@@ -20,7 +20,7 @@ class CreateVouchersTable extends Migration
             $table->dateTime('EXD');
             $table->string('Content');
             $table->integer('Quantity');
-            $table->boolean('Status');
+            $table->boolean('Status')->default(1);
             $table->timestamps();
         });
     }

@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
-class ConfigurationSeeder extends Seeder
+class OrderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,5 +14,6 @@ class ConfigurationSeeder extends Seeder
      */
     public function run()
     {
+        //
     }
 }

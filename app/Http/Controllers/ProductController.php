@@ -10,7 +10,7 @@ class ProductController extends Controller
 
     public function getAllProduct()
     {
-        $response = Product::all();
+        $response = Product::where('status', '=', 1)->with('ProductType')->paginate(5);
         return response()->json($response, 200);
     }
     /**

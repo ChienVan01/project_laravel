@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('OrderStatus_id');
             $table->date('TimeBuy');
             $table->Decimal('TotalPrice');
-            $table->integer('Status');
+            $table->boolean('Status')->default(1);
             $table->timestamps();
         });
     }

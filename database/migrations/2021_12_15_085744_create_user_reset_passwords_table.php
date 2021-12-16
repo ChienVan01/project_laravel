@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductImageTable extends Migration
+class CreateUserResetPasswordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateProductImageTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_images', function (Blueprint $table) {
+        Schema::create('user_reset_passwords', function (Blueprint $table) {
             $table->id();
-            $table->string('Image');
-            $table->unsignedBigInteger('Product_id');
-            $table->boolean('Status')->default(1);
+            $table->unsignedBigInteger('User_id');
+            $table->string('Reset_password_code');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateProductImageTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_images');
+        Schema::dropIfExists('user_reset_passwords');
     }
 }
