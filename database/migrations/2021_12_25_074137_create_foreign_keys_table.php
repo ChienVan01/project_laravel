@@ -20,9 +20,11 @@ class CreateForeignKeysTable extends Migration
             $table->foreign('User_id')->references('id')->on('users');
             $table->foreign('Product_id')->references('id')->on('products');
         });
+
         Schema::table('user_reset_passwords', function (Blueprint $table) {
             $table->foreign('User_id')->references('id')->on('users');
         });
+
         Schema::table('user_activations', function (Blueprint $table) {
             $table->foreign('User_id')->references('id')->on('users');
         });
@@ -46,10 +48,12 @@ class CreateForeignKeysTable extends Migration
         Schema::table('product_types', function (Blueprint $table) {
             $table->foreign('Parent_id')->references('id')->on('product_types');
         });
+
         Schema::table('detail_configurations', function (Blueprint $table) {
             $table->foreign('ProductType_id')->references('id')->on('product_types');
             $table->foreign('Configuration_id')->references('id')->on('configurations');
         });
+        
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('UserType_id')->references('id')->on('user_types');
         });
