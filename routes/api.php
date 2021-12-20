@@ -42,10 +42,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
   //Product
   Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'getAllProduct']);
+    Route::get('/{id}', [ProductController::class, 'getDetailProduct']);
 });
 //Product_type
 Route::prefix('product_type')->group(function () {
     Route::get('/', [ProductTypeController::class, 'getAllProductType']);
+    Route::get('/{id}', [ProductTypeController::class, 'getAllDetailProductType']);
 });
 //Order
 Route::prefix('order')->group(function () {
