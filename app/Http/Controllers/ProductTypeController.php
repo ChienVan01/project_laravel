@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductType;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductTypeController extends Controller
@@ -11,6 +12,11 @@ class ProductTypeController extends Controller
     public function getAllProductType()
     {
         $response =  ProductType::all();
+        return response()->json($response, 200);
+    }
+    public function getAllDetailProductType($id)
+    {
+        $response =  Product::where('ProductType_id', '=', $id)->get();
         return response()->json($response, 200);
     }
 
