@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Payment Method</title>
-    @include("header")
+    <title>Product</title>
+    @include("./component/header")
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -146,7 +146,7 @@
   </nav>
   <!-- /.navbar -->
 
-  @include('sidebar')
+  @include("./component/sidebar")
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -745,6 +745,6 @@
 </div>
 <!-- ./wrapper -->
 
-@include("footer")
+@include("./component/footer")
 </body>
 </html>

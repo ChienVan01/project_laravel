@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <title>Login</title>
-    @include("header")
+    @include("./component/header")
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -15,7 +15,7 @@
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="/api/login" method="post">
+      <form action="{{ route('login') }}" method="post">
         <div class="input-group mb-3">
           <input type="email" name="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
@@ -35,7 +35,7 @@
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" name="remember" id="remember">
+              <input type="checkbox"  id="remember">
               <label for="remember">
                 Remember Me
               </label>
@@ -72,6 +72,6 @@
   <!-- /.card -->
 </div>
 <!-- /.login-box -->
-@include("footer")
+@include("./component/footer")
 </body>
 </html>

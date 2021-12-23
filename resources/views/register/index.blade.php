@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <title>Register</title>
-    @include("header")
+    @include("./component/header")
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -14,9 +14,10 @@
     <div class="card-body">
       <p class="login-box-msg">Register a new membership</p>
 
-      <form action="../../index.html" method="post">
+      <form action="{{ route('register') }}" method="post">
+        @csrf
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Full name" name="Name">
+          <input type="text" class="form-control" placeholder="Full name" name="name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -24,7 +25,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email"  name="Email">
+          <input type="email" class="form-control" placeholder="Email"  name="email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -32,7 +33,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password"  name="Password">
+          <input type="password" class="form-control" placeholder="Password"  name="password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -40,7 +41,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password"  name="PrePassword">
+          <input type="password" class="form-control" placeholder="Retype password"  name="password_confirmation">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -69,6 +70,6 @@
   </div><!-- /.card -->
 </div>
 <!-- /.register-box -->
-@include("footer")
+@include("./component/footer")
 </body>
 </html>

@@ -1,10 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PaymentMethodController;
-use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,14 +15,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
+Route::get('/',[DashboardController::class, 'index'])->name('/');
+
+Route::get('/login',function(){
+    return view('login.index');
+})->name('login');
+
+Route::get('/register',function(){
+    return view('register.index');
 });
-Route::get('/login', [LoginController::class ,'index']);
-Route::get('/register', [RegisterController::class ,'index']);
-Route::get('/order', [OrderController::class ,'index']);
-Route::get('/dashboard', [DashboardController::class ,'index']);
-Route::get('/payment', [PaymentMethodController::class ,'index']);
-Route::get('/404', function () {
-    return view('404');
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
+
+Route::get('/products',function(){
+    return view('products.index');
+});
+Route::get('/order',function(){
+    return view('order.index');
+});
+Route::get('/payment',function(){
+    return view('payment.index');
 });

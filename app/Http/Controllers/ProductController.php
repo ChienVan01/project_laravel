@@ -8,16 +8,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
-    public function getAllProduct()
-    {
-        $response = Product::where('status', '=', 1)->get();
-        return response()->json($response, 200);
-    }
-    public function getDetailProduct($id)
-    {
-        $response = Product::where('id', '=', $id)->where('status', '=', 1)->get();
-        return response()->json($response, 200);
-    }
+   
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        // $response = Product::where('status', '=', 1)->get();
+        // return response()->json($response, 200);
+        return Product::all();
     }
 
     /**
@@ -45,8 +38,17 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    { 
+        $request->validate([
+            'name'=> 'required',
+            'Info'=> 'required',
+            'Price'=> 'required',
+            'Quantity'=> 'required',
+            'Avatar'=> 'required',
+            'Status'=> 'required',
+            'Origin'=> 'required',
+        ]);
+        return Product::create($request->all());
     }
 
     /**
@@ -55,9 +57,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $Product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $Product)
+    public function show($id)
     {
-        //
+        return Product::find($id);
     }
 
     /**
@@ -78,19 +80,25 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $Product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $Product)
+    public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->update($request->all());
+        return $product;
+    }
+    public function destroy($id)
+    {
+        return response()->json([Product::destroy($id), 'message' => 'Successfully destroy product']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $Product
+     * @param  str $name
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $Product)
+    public function search($name)
     {
-        //
+        return Product::Where('Name', 'like','%'.$name.'%')->get();
     }
 }
