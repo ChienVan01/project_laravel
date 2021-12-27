@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,17 @@ use Laravel\Sanctum\Sanctum;
 
 class AuthController extends Controller
 {
+    
+    public function getProfile(Request $request)
+    {
+        try {
+            $user_id = $request->user()->id;
+            $user = User::find($user_id);
+            return response()->json(['status' => 'true', 'message' => 'User Profile', 'data' => $user]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'false', 'message' => $e->getMessage(), 'data' => []],500);
+        }
+    }
     public function register(Request $request)
     {
         $data = $request->validate([
@@ -50,9 +62,9 @@ class AuthController extends Controller
             'user' => $user,
             'tokenUser' => $token,
         ];
-        session(['user' =>  $response]);
+        session(['users' =>  $response]);
         //return response($response, 201);
-          return redirect()->Route('/');
+        return redirect()->Route('/');
     }
     public function logout(Request $request)
     {
@@ -64,8 +76,7 @@ class AuthController extends Controller
                 'message' => 'Successfully logged out'
             ]);
         }
-        session()->forget('user');
+        session()->forget('users');
         return redirect()->Route('/');
-       
     }
 }

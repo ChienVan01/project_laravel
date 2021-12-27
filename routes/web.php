@@ -38,3 +38,4 @@ Route::get('/order',function(){
 Route::get('/payment',function(){
     return view('payment.index');
 });
+

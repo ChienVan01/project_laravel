@@ -26,23 +26,6 @@
           <div class="col-sm-6">
             <h1 class="m-0">Dashboard v3</h1>
           </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              @if (session()->exists('user'))
-                <li class="breadcrumb-item"><a href="#">Man</a></li>
-                <li class="breadcrumb-item">
-                  <form action="{{ route('logout') }}" method="post">
-                    @csrf
-                    <button type="submit">Logout</button>
-                  </form>
-                </li>           
-              @else 
-                <li class="breadcrumb-item"><a href="{{ route('login') }}">Sign In</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('register') }}">Sign Up</a></li>
-              @endif
-            </ol>
-             
-          </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
