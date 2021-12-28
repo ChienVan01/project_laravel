@@ -12,16 +12,17 @@ use Laravel\Sanctum\Sanctum;
 
 class AuthController extends Controller
 {
-    
+
     public function getProfile(Request $request)
     {
-        try {
-            $user_id = $request->user()->id;
-            $user = User::find($user_id);
-            return response()->json(['status' => 'true', 'message' => 'User Profile', 'data' => $user]);
-        } catch (\Exception $e) {
-            return response()->json(['status' => 'false', 'message' => $e->getMessage(), 'data' => []],500);
-        }
+        // try {
+        //     $user_id = $request->user()->id;
+        //     $user = User::find($user_id);
+        //     return response()->json(['status' => 'true', 'message' => 'User Profile', 'data' => $user]);
+        // } catch (\Exception $e) {
+        //     return response()->json(['status' => 'false', 'message' => $e->getMessage(), 'data' => []], 500);
+        // }
+        return auth()->user();
     }
     public function register(Request $request)
     {
@@ -41,8 +42,8 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token,
         ];
-        //return response($response, 201);
-        return redirect()->Route('/');
+        return response()->json($response, 201);
+        //return redirect()->Route('/');
     }
 
     public function login(Request $request)
@@ -63,8 +64,8 @@ class AuthController extends Controller
             'tokenUser' => $token,
         ];
         session(['users' =>  $response]);
-        //return response($response, 201);
-        return redirect()->Route('/');
+        return response($response, 201);
+        //return redirect()->Route('/');
     }
     public function logout(Request $request)
     {
@@ -77,6 +78,6 @@ class AuthController extends Controller
             ]);
         }
         session()->forget('users');
-        return redirect()->Route('/');
+        //return redirect()->Route('/');
     }
 }
