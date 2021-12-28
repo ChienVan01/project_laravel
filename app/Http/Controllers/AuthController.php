@@ -6,7 +6,10 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\Sanctum;
 
@@ -47,23 +50,22 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         $data = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
-        $user = User::where('Email', $data['email'])->first();
-
+        $user = User::where('Email', $data['email'])->first();    
         if (!$user || !Hash::check($data['password'], $user->Password)) {
-            return response(['message' => 'The provided credentials are incorrect.'], 401);
+            $errors= new MessageBag(['password'=>['Username or password invalid']]);
+            return redirect()->Route('login')->withErrors($errors);
         }
         $token = $user->createToken('ShopGearToken')->plainTextToken;
+        
         $response = [
             'user' => $user,
             'tokenUser' => $token,
         ];
         session(['users' =>  $response]);
-        //return response($response, 201);
         return redirect()->Route('/');
     }
     public function logout(Request $request)
