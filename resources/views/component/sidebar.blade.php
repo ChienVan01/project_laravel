@@ -15,8 +15,8 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">
-            @if (session()->exists('users'))
-            <p class="breadcrumb-item"><a href="#">Man</a></p>     
+            @if (Session::has('users'))
+            <p class="breadcrumb-item"><a href="#">{{(Session::get('users'))['user']->Name}}</a></p>     
           @else 
             <p class="breadcrumb-item"><a href="{{ route('login') }}">Sign In</a></p>
           @endif
@@ -103,7 +103,7 @@
                   <form action="{{ route('logout') }}" method="post" class="nav-link">
                     @csrf
                     <i class="far fa-sign-out nav-icon"></i>
-                    <button type="submit">Logout</button>
+                    <button type="submit" class="btn btn-primary">Logout</button>
                   </form>
                   </a>
                 </li>
@@ -166,8 +166,6 @@
               </a>
             </li>
              @endif
-         
-         
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

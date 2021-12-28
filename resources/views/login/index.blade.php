@@ -13,7 +13,11 @@
       <a href="../../index2.html" class="h1"><b>ShopGear</b></a>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      @if($error=$errors->first('password'))
+      <div class="alert alert-danger">
+          {{ $error }}
+        </div>
+      @endif
 
       <form action="{{ route('login') }}" method="post">
         <div class="input-group mb-3">

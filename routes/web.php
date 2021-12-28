@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[DashboardController::class, 'index'])->name('/');
+Route::get('/',[DashboardController::class, 'index'])->name('/')->middleware('checklogin');
 
 Route::get('/login',function(){
     return view('login.index');
@@ -31,7 +31,7 @@ Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
 
 Route::get('/products',function(){
     return view('products.index');
-});
+})->middleware('checklogin');
 Route::get('/order',function(){
     return view('order.index');
 });

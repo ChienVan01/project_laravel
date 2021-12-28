@@ -78,6 +78,6 @@ class AuthController extends Controller
             ]);
         }
         session()->forget('users');
-        //return redirect()->Route('/');
+        return redirect()->Route('/');
     }
 }
