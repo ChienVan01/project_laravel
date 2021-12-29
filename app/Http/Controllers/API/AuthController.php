@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token,
         ];
-        return redirect()->route('login');
+        return response(  $response , 201);
     }
 
     public function login(Request $request)
@@ -63,7 +64,7 @@ class AuthController extends Controller
             'tokenUser' => $token,
         ];
         session(['users' =>  $response]);
-        return redirect()->route('/');
+        return response( $response , 201);
     }
     public function logout(Request $request)
     {
@@ -76,6 +77,5 @@ class AuthController extends Controller
             ]);
         }
         session()->forget('users');
-        return redirect()->route('/');
     }
 }

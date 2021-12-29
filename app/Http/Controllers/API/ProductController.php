@@ -18,8 +18,7 @@ class ProductController extends Controller
     {
         // $response = Product::where('status', '=', 1)->get();
         // return response()->json($response, 200);
-        $products =  Product::all();
-        return view('products.index',compact('products'));
+        return Product::all();
     }
 
     /**
@@ -60,8 +59,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $detail = Product::find($id);
-        return view('products.detail',compact('detail'));
+        return Product::find($id);
     }
 
     /**
@@ -90,10 +88,7 @@ class ProductController extends Controller
     }
     public function destroy($id)
     {
-        $product = Product::find($id);
-        $product->Status = 0;
-        $product->save();
-        return redirect('/products');
+        return response()->json([Product::destroy($id), 'message' => 'Successfully destroy product']);
     }
 
     /**
