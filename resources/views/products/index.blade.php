@@ -155,12 +155,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Products</h1>
+            <h1>Danh Sách Sản Phẩm</h1>
+            <a class="btn btn-primary" type="button" href="#">Thêm Sản Phẩm</a>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href={{ route('/') }}>Home</a></li>
-              <li class="breadcrumb-item active">Products</li>
+              <li class="breadcrumb-item"><a href={{ route('/') }}>Trang Chủ</a></li>
+              <li class="breadcrumb-item active">Danh Sách Sản Phẩm</li>
             </ol>
           </div>
         </div>
@@ -230,7 +231,7 @@
                       </td>
                       <td class="project-state">
                           @if($product->Status == 1)
-                            <span class="badge badge-success">Acctive</span>
+                            <span class="badge badge-success">Active</span>
                           @else
                             <span class="badge badge-danger">Deactive</span>
                           @endif
@@ -241,7 +242,7 @@
                               </i>
                               View
                           </a>
-                          <a class="btn btn-info btn-sm" href="#">
+                          <a class="btn btn-info btn-sm" href="/products/edit/{{ $product->id }}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit

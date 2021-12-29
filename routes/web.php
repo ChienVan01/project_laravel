@@ -36,6 +36,8 @@ Route::middleware(['checklogin'])->group(function () {
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/detail/{id}', [ProductController::class, 'show']);
     Route::get('/products/delete/{id}', [ProductController::class, 'destroy']);
+    Route::get('/products/edit/{id}', [ProductController::class, 'edit']);
+    Route::post('/products/update', [ProductController::class, 'update'])->name('updateProduct');
     Route::get('/order', [OrderController::class, 'index']);
     Route::get('/payment', [PaymentController::class, 'index']);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
