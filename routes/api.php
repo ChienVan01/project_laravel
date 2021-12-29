@@ -7,7 +7,11 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserTypeController;
+use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NotifyController;
 
 use App\Models\ProductType;
 use App\Models\User;
@@ -71,6 +75,26 @@ Route::prefix('delivery_method')->group(function () {
     Route::get('/', [DeliveryController::class, 'getAllDeliveryMethod']);
 });
 
+//UserType
+Route::prefix('user_type')->group(function () {
+    Route::get('/', [UserTypeController::class, 'getAllUserType']);
+});
+//User
+Route::prefix('user')->group(function () {
+    Route::get('/', [UserController::class, 'getAllUserMember']);
+});
+//Comment
+Route::prefix('comment')->group(function () {
+    Route::get('/', [CommentController::class, 'getAllComment']);
+});
+//Voucher
+Route::prefix('voucher')->group(function () {
+    Route::get('/', [VoucherController::class, 'getAllVoucher']);
+});
+//Notify
+Route::prefix('notify')->group(function () {
+    Route::get('/', [NotifyController::class, 'getAllNotify']);
+});
 
 
 
