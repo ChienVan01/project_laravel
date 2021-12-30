@@ -94,6 +94,7 @@ Route::prefix('voucher')->group(function () {
 //Notify
 Route::prefix('notify')->group(function () {
     Route::get('/', [NotifyController::class, 'getAllNotify']);
+    Route::delete('/{id}',[NotifyController::class, 'destroy']);
 });
 
 

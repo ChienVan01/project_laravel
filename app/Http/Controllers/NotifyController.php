@@ -83,8 +83,8 @@ class NotifyController extends Controller
      * @param  \App\Models\notify  $notify
      * @return \Illuminate\Http\Response
      */
-    public function destroy(notify $notify)
+    public function destroy($id)
     {
-        //
+        return response()->json([notify::destroy($id), 'message' => 'Successfully destroy product']);
     }
 }
