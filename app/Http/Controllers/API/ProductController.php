@@ -18,8 +18,7 @@ class ProductController extends Controller
     {
         // $response = Product::where('status', '=', 1)->get();
         // return response()->json($response, 200);
-        $products =  Product::all();
-        return view('products.index',compact('products'));
+        return Product::all();
     }
 
     /**
@@ -29,7 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        //
     }
 
     /**
@@ -45,20 +44,11 @@ class ProductController extends Controller
             'Info'=> 'required',
             'Price'=> 'required',
             'Quantity'=> 'required',
-            'Avatar'=>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'Avatar'=> 'required',
             'Status'=> 'required',
             'Origin'=> 'required',
         ]);
-        $input = $request->all();
-        // if ($image = $request->file('Avatar')) {
-        //     $destinationPath = 'image/';
-        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-        //     $image->move($destinationPath, $profileImage);
-        //     $input['image'] = "$profileImage";
-        // }
-        dd($input);
-        // Product::create($input);
-        // return redirect('products.index')->with('success','Product created successfully.');
+        return Product::create($request->all());
     }
 
     /**
@@ -69,8 +59,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $detail = Product::find($id);
-        return view('products.detail',compact('detail'));
+        return Product::find($id);
     }
 
     /**
@@ -79,10 +68,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $Product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $Product)
     {
-        $product = Product::find($id);
-        return view('products.edit',compact('product'));
+        //
     }
 
     /**
@@ -92,23 +80,15 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $Product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {  
-       $product = Product::Where('id',$request->id)->update([
-           'Name'=> $request->Name,
-           'Status'=>$request->Status,
-           'Price'=>$request->Price,
-        ]);
-     
-        return redirect('products');
-        
+    public function update(Request $request, $id)
+    {
+        $product = Product::find($id);
+        $product->update($request->all());
+        return $product;
     }
     public function destroy($id)
     {
-        $product = Product::find($id);
-        $product->Status = 0;
-        $product->save();
-        return redirect('products');
+        return response()->json([Product::destroy($id), 'message' => 'Successfully destroy product']);
     }
 
     /**

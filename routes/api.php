@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserTypeController;
@@ -29,10 +29,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 /*----------------------------------------------------------------*/
 //public Route
 Route::post('/login', [AuthController::class, 'login'] );
@@ -44,8 +40,8 @@ Route::get('products/{id}', [ProductController::class ,'show']);
 Route::get('/products/search/{name}', [ProductController::class, 'search']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/getProfile', [AuthController::class,'getProfile']);
 
+    Route::get('/profile', [AuthController::class ,'getProfile']);
     Route::prefix('products')->group(function () {
         Route::post('/',[ProductController::class, 'store']);
         Route::put('/{id}',[ProductController::class, 'update']);

@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,27 +18,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[DashboardController::class, 'index'])->name('/')->middleware('checklogin');
 
-Route::get('/login',function(){
+
+Route::get('/login', function () {
     return view('login.index');
 })->name('login');
 
-Route::get('/register',function(){
+Route::get('/register', function () {
     return view('register.index');
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
 
-Route::get('/products',function(){
-    return view('products.index');
-})->middleware('checklogin');
-Route::get('/order',function(){
-    return view('order.index');
+Route::middleware(['checklogin'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('/');
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/products/create', [ProductController::class, 'create']);
+    Route::post('/products/store', [ProductController::class, 'store'])->name('createProduct');
+    Route::get('/products/detail/{id}', [ProductController::class, 'show']);
+    Route::get('/products/delete/{id}', [ProductController::class, 'destroy']);
+    Route::get('/products/edit/{id}', [ProductController::class, 'edit']);
+    Route::post('/products/update', [ProductController::class, 'update'])->name('updateProduct');
+    Route::get('/order', [OrderController::class, 'index']);
+    Route::get('/payment', [PaymentController::class, 'index']);
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
-Route::get('/payment',function(){
-    return view('payment.index');
-});
-
