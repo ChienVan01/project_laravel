@@ -34,6 +34,8 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::middleware(['checklogin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('/');
     Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/products/create', [ProductController::class, 'create']);
+    Route::post('/products/store', [ProductController::class, 'store'])->name('createProduct');
     Route::get('/products/detail/{id}', [ProductController::class, 'show']);
     Route::get('/products/delete/{id}', [ProductController::class, 'destroy']);
     Route::get('/products/edit/{id}', [ProductController::class, 'edit']);

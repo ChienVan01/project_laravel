@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**
@@ -45,11 +45,20 @@ class ProductController extends Controller
             'Info'=> 'required',
             'Price'=> 'required',
             'Quantity'=> 'required',
-            'Avatar'=> 'required',
+            'Avatar'=>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'Status'=> 'required',
             'Origin'=> 'required',
         ]);
-        return Product::create($request->all());
+        $input = $request->all();
+        // if ($image = $request->file('Avatar')) {
+        //     $destinationPath = 'image/';
+        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        //     $image->move($destinationPath, $profileImage);
+        //     $input['image'] = "$profileImage";
+        // }
+        dd($input);
+        // Product::create($input);
+        // return redirect('products.index')->with('success','Product created successfully.');
     }
 
     /**
@@ -87,7 +96,8 @@ class ProductController extends Controller
     {  
        $product = Product::Where('id',$request->id)->update([
            'Name'=> $request->Name,
-           'Status'=>$request->Status
+           'Status'=>$request->Status,
+           'Price'=>$request->Price,
         ]);
      
         return redirect('products');

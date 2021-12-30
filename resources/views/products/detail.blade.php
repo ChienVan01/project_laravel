@@ -1,16 +1,6 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Product Detail</title>
-    @include("./component/header")
-</head>
-<body class="hold-transition sidebar-mini">
-<!-- Site wrapper -->
-
-@include("./component/sidebar")
-<div class="wrapper">
-
+@extends('master')
+@section('title', 'Sản Phẩm')
+@section('content')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -145,24 +135,4 @@
 
   </div>
   <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-
-@include("./component/footer")
-<script>
-  $(document).ready(function() {
-    $('.product-image-thumb').on('click', function () {
-      var $image_element = $(this).find('img')
-      $('.product-image').prop('src', $image_element.attr('src'))
-      $('.product-image-thumb.active').removeClass('active')
-      $(this).addClass('active')
-    })
-  })
-</script>
-</body>
-</html>
+@endsection
