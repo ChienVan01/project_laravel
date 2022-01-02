@@ -4,22 +4,33 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\ProductType;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductTypeController extends Controller
 {
 
-   
+    public function getAllProductType()
+    {
+        $response =  ProductType::all();
+        return response()->json($response, 200);
+    }
+    public function getAllDetailProductType($id)
+    {
+        $response =  Product::where('ProductType_id', '=', $id)->get();
+        return response()->json($response, 200);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $response = Product::where('Status', '=', 1)->get();
-        return response()->json($response, 200);
+        //
     }
 
     /**
@@ -39,37 +50,28 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
-        $request->validate([
-            'name'=> 'required',
-            'Info'=> 'required',
-            'Price'=> 'required',
-            'Quantity'=> 'required',
-            'Avatar'=> 'required',
-            'Status'=> 'required',
-            'Origin'=> 'required',
-        ]);
-        return Product::create($request->all());
+    {
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $Product
+     * @param  \App\Models\ProductType  $ProductType
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ProductType $ProductType)
     {
-        return Product::find($id);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $Product
+     * @param  \App\Models\ProductType  $ProductType
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $Product)
+    public function edit(ProductType $ProductType)
     {
         //
     }
@@ -78,28 +80,22 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $Product
+     * @param  \App\Models\ProductType  $ProductType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ProductType $ProductType)
     {
-        $product = Product::find($id);
-        $product->update($request->all());
-        return $product;
-    }
-    public function destroy($id)
-    {
-        return response()->json([Product::destroy($id), 'message' => 'Successfully destroy product']);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  str $name
+     * @param  \App\Models\ProductType  $ProductType
      * @return \Illuminate\Http\Response
      */
-    public function search($name)
+    public function destroy(ProductType $ProductType)
     {
-        return Product::Where('Name', 'like','%'.$name.'%')->get();
+        //
     }
 }

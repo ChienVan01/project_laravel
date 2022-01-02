@@ -5,7 +5,8 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\API\ProductTypeController;
+use App\Http\Controllers\API\UserController as APIUserController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 
@@ -46,7 +47,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
 });
 
-
+Route::prefix('user')->group(function () {
+    Route::get('/', [APIUserController::class, 'index']);
+   
+});
 
 //Product_type
 Route::prefix('product_type')->group(function () {

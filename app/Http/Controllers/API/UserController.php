@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class UserController extends Controller
 {
-
-   
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $response = Product::where('Status', '=', 1)->get();
+        $response = User::all();
         return response()->json($response, 200);
     }
 
@@ -39,37 +36,28 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
-        $request->validate([
-            'name'=> 'required',
-            'Info'=> 'required',
-            'Price'=> 'required',
-            'Quantity'=> 'required',
-            'Avatar'=> 'required',
-            'Status'=> 'required',
-            'Origin'=> 'required',
-        ]);
-        return Product::create($request->all());
+    {
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $Product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return Product::find($id);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $Product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $Product)
+    public function edit($id)
     {
         //
     }
@@ -78,28 +66,22 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $Product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
-        $product->update($request->all());
-        return $product;
-    }
-    public function destroy($id)
-    {
-        return response()->json([Product::destroy($id), 'message' => 'Successfully destroy product']);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  str $name
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function search($name)
+    public function destroy($id)
     {
-        return Product::Where('Name', 'like','%'.$name.'%')->get();
+        //
     }
 }

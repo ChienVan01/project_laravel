@@ -30,12 +30,14 @@ class AuthController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
+            'phone' => 'required|string',
             'password' => 'required|string|confirmed',
         ]);
 
         $user = User::create([
-            'name' => $data['name'],
+            'name'=> $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => bcrypt($data['password']),
         ]);
         $token = $user->createToken('ShopGearToken')->plainTextToken;
