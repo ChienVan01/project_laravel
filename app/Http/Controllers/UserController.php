@@ -19,7 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -62,7 +63,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $user = User::find($id);
+        return view('users.edit',compact('user'));
     }
 
     /**
@@ -74,7 +76,17 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $product = User::Where('id',$request->id)->update([
+            'Email'=> $request->Email,
+            'Name'=> $request->Name,
+            'Password'=> $request->Password,
+            'Phone'=> $request->Phone,
+            'Address'=> $request->Address,
+            'Avatar'=>$request->Avatar,
+            'UserType_id'=> $request->UserType_id,
+            'Status'=>$request->Status,
+         ]);     
+         return redirect('users');        
     }
 
     /**

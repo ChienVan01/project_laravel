@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\notify;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class NotifyController extends Controller
@@ -19,7 +20,9 @@ class NotifyController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        $notifies = notify::all();
+        return view('notifies.index', compact('notifies','users'));
     }
 
     /**
@@ -62,7 +65,8 @@ class NotifyController extends Controller
      */
     public function edit(notify $notify)
     {
-        //
+        $notify = notify::find($id);
+        return view('notifys.edit',compact('notify'));
     }
 
     /**
@@ -85,6 +89,9 @@ class NotifyController extends Controller
      */
     public function destroy($id)
     {
-        return response()->json([notify::destroy($id), 'message' => 'Successfully destroy product']);
+        $notify = notify::find($id);
+        $notify->Status = 0;
+        $notify->save();
+        return redirect('notifies');
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\comment;
+use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -19,7 +21,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        $users = User::all();
+        $comments = comment::all();
+        return view('comments.index', compact('comments','users', 'products'));
     }
 
     /**
