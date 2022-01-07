@@ -70,7 +70,9 @@ Route::prefix('payment')->group(function () {
 Route::prefix('delivery_method')->group(function () {
     Route::get('/', [DeliveryController::class, 'getAllDeliveryMethod']);
 });
+// mail xac thuc
+Route::get('user/reset-password/{token}', [AuthController::class,'resetPasswordUser'])->name('user.reset-password');
+Route::post('user/forgot-password', [AuthController::class,'ForgotPassword']);
 
-
-
-
+//client call api
+Route::post('user/reset-password-client/{token}', [AuthController::class,'resetPasswordUserClient']);

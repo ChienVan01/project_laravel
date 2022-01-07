@@ -9,10 +9,12 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\Sanctum;
+use App\Classes\ResetPasswordService;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
-
+ 
     public function getProfile(Request $request)
     {
         // try {
@@ -78,4 +80,8 @@ class AuthController extends Controller
         session()->forget('users');
         return redirect()->route('/');
     }
+
+
+
+  
 }
