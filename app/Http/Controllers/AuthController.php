@@ -54,7 +54,7 @@ class AuthController extends Controller
         ]);
         $user = User::where('Email', $data['email'])->first();
 
-        if (!$user || !Hash::check($data['password'], $user->Password)) {
+        if (($user->UserType_id != 1) || !Hash::check($data['password'], $user->Password)) {
             return response(['message' => 'The provided credentials are incorrect.'], 401);
         }
         $token = $user->createToken('ShopGearToken')->plainTextToken;

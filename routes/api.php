@@ -1,16 +1,17 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\NewPasswordController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ProductTypeController;
-use App\Http\Controllers\API\UserController as APIUserController;
+use App\Http\Controllers\API\UserController ;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\VoucherController;
-use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NotifyController;
 
@@ -32,8 +33,10 @@ use Illuminate\Support\Facades\Route;
 */
 /*----------------------------------------------------------------*/
 //public Route
-Route::post('/login', [AuthController::class, 'login'] );
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login'] );
+Route::post('register', [AuthController::class, 'register']);
+Route::post('/forgot-password',[NewPasswordController::class,'forgotPassword']);
+Route::post('reset-password',[NewPasswordController::class,'resetPassword']);
 
 
 Route::get('products', [ProductController::class ,'index']);
@@ -49,11 +52,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{id}',[ProductController::class, 'destroy']);
     });
     Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
-});
-
-Route::prefix('user')->group(function () {
-    Route::get('/', [APIUserController::class, 'index']);
-   
 });
 
 //Product_type
@@ -81,7 +79,8 @@ Route::prefix('user_type')->group(function () {
 });
 //User
 Route::prefix('user')->group(function () {
-    Route::get('/', [UserController::class, 'getAllUserMember']);
+    Route::get('/', [UserController::class, 'index']);
+    Route::put('/update/{id}',  [UserController::class, 'update']); 
 });
 //Comment
 Route::prefix('comment')->group(function () {

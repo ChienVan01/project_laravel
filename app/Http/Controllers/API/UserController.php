@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -69,9 +70,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request)
+    {   
+        // $product = Product::Where('id',$request->id)->update([
+        //     'Name'=> $request->Name,
+        //     'Status'=>$request->Status,
+        //     'Price'=>$request->Price,
+        //  ]);
+      
+            
+        $user = User::Where('id',$request->id)->update([
+            // 'Email'=> $request->Email,
+            'name'=> $request->Name,
+            // 'password'=>Hash::make($request->Password),
+            // 'phone'=> $request->Phone,
+            // 'address'=> $request->Address,
+            // 'Avatar'=>$request->Avatar,
+            // 'UserType_id'=> $request->UserType_id,
+            // 'Status'=>$request->Status,
+        ]);
+        return response()->json($user, 200);
     }
 
     /**
