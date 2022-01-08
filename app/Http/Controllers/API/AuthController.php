@@ -43,7 +43,7 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token,
         ];
-        return response(  $response , 201);
+        return response($response, 201);
     }
 
     public function login(Request $request)
@@ -64,13 +64,14 @@ class AuthController extends Controller
             'tokenUser' => $token,
         ];
         session(['users' =>  $response]);
-        return response( $response , 201);
+        return response($response, 201);
     }
     public function logout(Request $request)
     {
         if ($token = $request->bearerToken()) {
             $model = Sanctum::$personalAccessTokenModel;
             $accessToken = $model::findToken($token);
+            // dd($accessToken);
             $accessToken->delete();
             return response()->json([
                 'message' => 'Successfully logged out'
