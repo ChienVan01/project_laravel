@@ -7,11 +7,7 @@ use Illuminate\Http\Request;
 
 class UserTypeController extends Controller
 {
-    public function getAllUserType()
-    {
-        $response =  user_type::all();
-        return response()->json($response, 200);
-    }
+ 
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +15,8 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        //
+        $response =  user_type::all();
+        return response()->json($response, 200);
     }
 
     /**

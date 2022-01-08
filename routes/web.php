@@ -10,6 +10,7 @@ use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NotifyController;
 use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\UserTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +50,7 @@ Route::middleware(['checklogin'])->group(function () {
     Route::get('/payment', [PaymentController::class, 'index']);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/users', [UserController::class, 'index']);
+    Route::get('/user_type', [UserTypeController::class, 'index']);
     Route::get('/comments', [CommentController::class, 'index']);
     Route::get('/vouchers', [VoucherController::class, 'index']);
     Route::get('/notifies', [NotifyController::class, 'index']);

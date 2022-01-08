@@ -43,10 +43,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function sendPasswordResetNotification($token)
-    {
-        $url = 'http://127.0.0.1:8000/api/reset-password?token='.$token;
-        $this->notify(new ResetPasswordNotification($url));
-    }
 }
