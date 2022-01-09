@@ -42,8 +42,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/{id}',[ProductController::class, 'update']);
         Route::delete('/{id}',[ProductController::class, 'destroy']);
     });
+    Route::post('/logout',[AuthController::class, 'logout']);
 });
-Route::post('/logout',[AuthController::class, 'logout']);
+
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::put('/update/{id}', [UserController::class, 'update']);

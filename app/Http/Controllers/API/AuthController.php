@@ -19,19 +19,8 @@ class AuthController extends Controller
     protected $resetPasswordService;
     public function __construct( ResetPasswordService $resetPasswordService)
     {
-        $this->middleware('guest');
+        // $this->middleware('guest');
         $this->resetPasswordService = $resetPasswordService;
-    }
-    public function getProfile(Request $request)
-    {
-        // try {
-        //     $user_id = $request->user()->id;
-        //     $user = User::find($user_id);
-        //     return response()->json(['status' => 'true', 'message' => 'User Profile', 'data' => $user]);
-        // } catch (\Exception $e) {
-        //     return response()->json(['status' => 'false', 'message' => $e->getMessage(), 'data' => []], 500);
-        // }
-        return auth()->user();
     }
     public function register(Request $request)
     {
@@ -58,7 +47,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         $data = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
