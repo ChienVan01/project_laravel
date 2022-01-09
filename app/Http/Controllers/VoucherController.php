@@ -32,7 +32,7 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        //
+        return view('vouchers.create');
     }
 
     /**
@@ -52,9 +52,10 @@ class VoucherController extends Controller
      * @param  \App\Models\Voucher  $voucher
      * @return \Illuminate\Http\Response
      */
-    public function show(Voucher $voucher)
-    {
-        //
+    public function show($id)
+    {       
+        $detail = Voucher::find($id);
+        return view('vouchers.detail',compact('voucher'));
     }
 
     /**
@@ -63,9 +64,10 @@ class VoucherController extends Controller
      * @param  \App\Models\Voucher  $voucher
      * @return \Illuminate\Http\Response
      */
-    public function edit(Voucher $voucher)
+    public function edit($id)
     {
-        //
+        $voucher = Voucher::find($id);
+        return view('vouchers.edit',compact('voucher'));
     }
 
     /**
@@ -75,9 +77,18 @@ class VoucherController extends Controller
      * @param  \App\Models\Voucher  $voucher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Voucher $voucher)
+    public function update(Request $request)
     {
-        //
+        $voucher = Voucher::Where('id',$request->id)->update([
+            'Name'=> $request->Name,
+            'EXD'=>$request->EXD,
+            'Content'=>$request->Content,
+            'Quantity'=>$request->Quantity,            
+            'Status'=>$request->Status,
+         ]);
+      
+         return redirect('vouchers');
+  
     }
 
     /**
@@ -86,8 +97,19 @@ class VoucherController extends Controller
      * @param  \App\Models\Voucher  $voucher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Voucher $voucher)
+    public function destroy($id)
     {
-        //
+        $voucher = Voucher::find($id);
+        $voucher->Status = 0;
+        $voucher->save();
+        return redirect('vouchers');
+    }
+
+    public function restore($id)
+    {
+        $voucher = Voucher::find($id);
+        $voucher->Status = 1;
+        $voucher->save();
+        return redirect('vouchers');
     }
 }

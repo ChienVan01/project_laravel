@@ -1,17 +1,13 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\DeliveryController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PaymentController;
+
 use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\ProductTypeController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\UserTypeController;
-use App\Http\Controllers\VoucherController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\NotifyController;
+
+use App\Http\Controllers\API\VoucherController;
+
+use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\NotifyController;
 
 use App\Models\ProductType;
 use App\Models\User;
@@ -76,21 +72,23 @@ Route::prefix('user_type')->group(function () {
     Route::get('/', [UserTypeController::class, 'getAllUserType']);
 });
 //User
-Route::prefix('user')->group(function () {
+Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'getAllUserMember']);
 });
 //Comment
-Route::prefix('comment')->group(function () {
-    Route::get('/', [CommentController::class, 'getAllComment']);
+Route::prefix('comments')->group(function () {
+    Route::get('/{id}', [CommentController::class, 'show']);
+
 });
 //Voucher
-Route::prefix('voucher')->group(function () {
+Route::prefix('vouchers')->group(function () {
     Route::get('/', [VoucherController::class, 'getAllVoucher']);
 });
 //Notify
-Route::prefix('notify')->group(function () {
-    Route::get('/', [NotifyController::class, 'getAllNotify']);
-    Route::delete('/{id}',[NotifyController::class, 'destroy']);
+Route::prefix('notifies')->group(function () {
+    Route::get('/', [NotifyController::class, 'index']);   
+    Route::get('/detail/{id}', [NotifyController::class, 'show']);
+    Route::get('/delete/{id}', [NotifyController::class, 'destroy']);
 });
 
 

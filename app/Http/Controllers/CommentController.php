@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function getAllComment()
+    public function getAllCommentByID()
     {
-        $response =  comment::all();
+        $response = comment::where('id', $id);
         return response()->json($response, 200);
     }
     /**
@@ -65,9 +65,10 @@ class CommentController extends Controller
      * @param  \App\Models\comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(comment $comment)
+    public function edit($id)
     {
-        //
+        $comment = comment::find($id);
+        return view('comments.edit',compact('comment'));
     }
 
     /**
@@ -77,9 +78,15 @@ class CommentController extends Controller
      * @param  \App\Models\comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, comment $comment)
+    public function update(Request $request)
     {
-        //
+        $comment = comment::Where('id',$request->id)->update([
+            'Rate'=> $request->Rate,
+            'Evaluate'=>$request->Evaluate,
+            'Status'=>$request->Status,
+         ]);
+      
+         return redirect('comments');
     }
 
     /**
@@ -88,8 +95,18 @@ class CommentController extends Controller
      * @param  \App\Models\comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(comment $comment)
+    public function destroy($id)
     {
-        //
+        $comment = comment::find($id);
+        $comment->Status = 0;
+        $comment->save();
+        return redirect('comments');
+    }
+    public function restore($id)
+    {
+        $comment = comment::find($id);
+        $comment->Status = 1;
+        $comment->save();
+        return redirect('comments');
     }
 }

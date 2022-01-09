@@ -107,11 +107,19 @@
                               </i>
                               Edit
                           </a>
+                          @if($product->Status==1)
                           <a class="btn btn-danger btn-sm" href="/products/delete/{{ $product->id }}">
                               <i class="fas fa-trash">
                               </i>
                               Delete
                           </a>
+                          @else
+                          <a class="btn btn-success btn-sm" href="/products/restore/{{ $product->id }}">
+                            <i class="fas fa-refresh">
+                            </i>
+                            Restore
+                        </a>
+                        @endif
                       </td>
                   </tr>
                     @endforeach
