@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('Name');
             $table->string('Phone')->nullable();
             $table->string('Address')->nullable();
-            $table->string('Avatar')->nullable();;
-            $table->unsignedBigInteger('UserType_id')->nullable();
+            $table->string('Avatar')->nullable();
+            $table->unsignedBigInteger('UserType_id')->default(2);
             $table->boolean('Status')->default(1);
             $table->rememberToken();
             $table->timestamps();

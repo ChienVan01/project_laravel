@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\ProductType;
 use App\Models\Product;
@@ -28,8 +30,7 @@ class ProductTypeController extends Controller
 
     public function index()
     {
-        $ProductType =  ProductType::all();
-        return view('product_types.index',compact('ProductType'));
+        //
     }
 
     /**
@@ -39,7 +40,7 @@ class ProductTypeController extends Controller
      */
     public function create()
     {
-        return view('product_types.create');
+        //
     }
 
     /**
@@ -50,7 +51,7 @@ class ProductTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //chua lam 
+        //
     }
 
     /**
@@ -59,10 +60,9 @@ class ProductTypeController extends Controller
      * @param  \App\Models\ProductType  $ProductType
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ProductType $ProductType)
     {
-        $detail =  Product::where('ProductType_id', '=', $id)->get();
-        return view('product_types.detail',compact('detail'));
+        //
     }
 
     /**
@@ -94,11 +94,8 @@ class ProductTypeController extends Controller
      * @param  \App\Models\ProductType  $ProductType
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ProductType $ProductType)
     {
-        $product_type = ProductType::find($id);
-        $product_type->Status = 0;
-        $product_type->save();
-        return redirect('/product_types');
+        //
     }
 }

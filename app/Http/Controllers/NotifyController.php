@@ -2,34 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductType;
-use App\Models\Product;
+use App\Models\notify;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProductTypeController extends Controller
+class NotifyController extends Controller
 {
-
-    public function getAllProductType()
+    public function getAllNotify()
     {
-        $response =  ProductType::all();
+        $response =  notify::all();
         return response()->json($response, 200);
     }
-    public function getAllDetailProductType($id)
-    {
-        $response =  Product::where('ProductType_id', '=', $id)->get();
-        return response()->json($response, 200);
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-        $ProductType =  ProductType::all();
-        return view('product_types.index',compact('ProductType'));
+        $users = User::all();
+        $notifies = notify::all();
+        return view('notifies.index', compact('notifies','users'));
     }
 
     /**
@@ -39,7 +32,7 @@ class ProductTypeController extends Controller
      */
     public function create()
     {
-        return view('product_types.create');
+        //
     }
 
     /**
@@ -50,40 +43,40 @@ class ProductTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //chua lam 
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductType  $ProductType
+     * @param  \App\Models\notify  $notify
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(notify $notify)
     {
-        $detail =  Product::where('ProductType_id', '=', $id)->get();
-        return view('product_types.detail',compact('detail'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductType  $ProductType
+     * @param  \App\Models\notify  $notify
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductType $ProductType)
+    public function edit(notify $notify)
     {
-        //
+        $notify = notify::find($id);
+        return view('notifys.edit',compact('notify'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductType  $ProductType
+     * @param  \App\Models\notify  $notify
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductType $ProductType)
+    public function update(Request $request, notify $notify)
     {
         //
     }
@@ -91,14 +84,14 @@ class ProductTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductType  $ProductType
+     * @param  \App\Models\notify  $notify
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $product_type = ProductType::find($id);
-        $product_type->Status = 0;
-        $product_type->save();
-        return redirect('/product_types');
+        $notify = notify::find($id);
+        $notify->Status = 0;
+        $notify->save();
+        return redirect('notifies');
     }
 }

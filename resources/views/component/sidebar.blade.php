@@ -70,7 +70,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/product_types" class="nav-link">
                   <i class="nav-icon fas fa-chart-pie"></i>
                   <p>
                     Product Type
@@ -80,7 +80,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/vouchers" class="nav-link">
                   <i class="nav-icon fas fa-chart-pie"></i>
                   <p>
                     Vouchers
@@ -90,10 +90,31 @@
               </li>
 
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/notifies" class="nav-link">
                   <i class="nav-icon fas fa-chart-pie"></i>
                   <p>
                     Notifications
+                   
+                  </p>
+                </a>
+              </li>
+                
+              <li class="nav-item">
+                <a href="/comments" class="nav-link">
+                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <p>
+                    Comments
+                   
+                  </p>
+                </a>
+              </li>
+
+                              
+              <li class="nav-item">
+                <a href="/users" class="nav-link">
+                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <p>
+                    Users
                    
                   </p>
                 </a>
@@ -107,7 +128,7 @@
                   </form>
                   </a>
                 </li>
-              
+   
              @else 
              <li class="nav-item">
               <a href="{{ route('/') }}" class="nav-link">

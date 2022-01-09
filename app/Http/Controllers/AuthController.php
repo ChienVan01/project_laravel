@@ -9,10 +9,12 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\Sanctum;
+use App\Classes\ResetPasswordService;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
-
+ 
     public function getProfile(Request $request)
     {
         // try {
@@ -54,7 +56,7 @@ class AuthController extends Controller
         ]);
         $user = User::where('Email', $data['email'])->first();
 
-        if (!$user || !Hash::check($data['password'], $user->Password)) {
+        if (($user->UserType_id != 1) || !Hash::check($data['password'], $user->Password)) {
             return response(['message' => 'The provided credentials are incorrect.'], 401);
         }
         $token = $user->createToken('ShopGearToken')->plainTextToken;
@@ -78,4 +80,8 @@ class AuthController extends Controller
         session()->forget('users');
         return redirect()->route('/');
     }
+
+
+
+  
 }

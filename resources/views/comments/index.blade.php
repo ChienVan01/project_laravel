@@ -1,5 +1,5 @@
 @extends('master')
-@section('title', 'Sản Phẩm')
+@section('title', 'Bình Luận')
 @section('content')
   
   <!-- Content Wrapper. Contains page content -->
@@ -9,13 +9,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Danh Sách Sản Phẩm</h1>
-            <a class="btn btn-primary" type="button" href="/products/create">Thêm Sản Phẩm</a>
+            <h1>Danh Sách Bình Luận</h1>
+            {{-- <a class="btn btn-primary" type="button" href="/products/create">Thêm Sản Phẩm</a> --}}
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href={{ route('/') }}>Trang Chủ</a></li>
-              <li class="breadcrumb-item active">Danh Sách Sản Phẩm</li>
+              <li class="breadcrumb-item active">Danh Sách Bình Luận</li>
             </ol>
           </div>
         </div>
@@ -41,95 +41,100 @@
                           #
                       </th>
                       <th style="width: 20%">
-                            Name
+                          Evaluate
                       </th>
-                      <th style="width: 30%">
-                          Image
+                      <th style="width: 15%">
+                          Rate
                       </th>
-                      <th>
-                         Price
+                      <th style="width: 15%">
+                        User
+                        </th>
+                      <th style="width: 15%">
+                         Product 
                       </th>
                       <th style="width: 8%" class="text-center">
                           Status
                       </th>
                       <th style="width: 20%">
+
                       </th>
                   </tr>
               </thead>
               <tbody>
-                    @foreach($products as $product)
+                @foreach ($comments as $comment)
+   
                   <tr>
                       <td>
-                          {{ $product->id }}
+                         {{ $comment->id }}
                       </td>
+
                       <td>
-                          <a>
-                              {{-- {{dd($product)}} --}}
-                            {{ $product->Name }}
-                          </a>
-                          <br/>                
-                      </td>
+                        {{ $comment->Evaluate }}
+                     </td>
+
                       <td>
-                          {{-- <ul class="list-inline">
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar2.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar3.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar4.png">
-                              </li>
-                          </ul> --}}
-                          <img alt="{{ $product->Avatar }}" class="table-avatar" src="../../dist/img/avatar.png">
+                          
+                            @for ($i=0; $i < $comment->Rate; $i++)
+                                <span><i class="fa fa-star text-warning"></i></span>                            
+                            @endfor
+                                      
                       </td>
-                      <td class="project_progress">
-                       <span>{{ number_format($product->Price) }} VND</span>
-                      </td>
+
+                        <td class="project_progress">
+                            @foreach ($users as $user)
+                               @if($comment->User_id == $user->id)
+                                <span>{{ $user->Email }}</span>
+                              @endif
+                            @endforeach                          
+                          </td>
+                      
+
+                        <td class="project_progress">
+                            @foreach ($products as $product)
+                               @if($comment->Product_id == $product->id)
+                                <span>{{ $product->Name}}</span>
+                              @endif
+                            @endforeach
+                           
+                          </td>
+ 
                       <td class="project-state">
-                          @if($product->Status == 1)
+                        @if ($user->Status==1)
                             <span class="badge badge-success">Active</span>
-                          @else
+                        @else
                             <span class="badge badge-danger">Deactive</span>
-                          @endif
+                        @endif  
                       </td>
                       <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="/products/detail/{{ $product->id }}">
+                          <a class="btn btn-primary btn-sm" href="#">
                               <i class="fas fa-folder">
                               </i>
                               View
                           </a>
-                          <a class="btn btn-info btn-sm" href="/products/edit/{{ $product->id }}">
+                          <a class="btn btn-info btn-sm" href="#">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
                           </a>
-                          <a class="btn btn-danger btn-sm" href="/products/delete/{{ $product->id }}">
+                          <a class="btn btn-danger btn-sm" href="#">
                               <i class="fas fa-trash">
                               </i>
                               Delete
                           </a>
                       </td>
                   </tr>
-                    @endforeach
-                  
+                                     
+                @endforeach    
               </tbody>
-            
           </table>
-    
         </div>
-     
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
-     
+
     </section>
     <!-- /.content -->
   </div>
-        {{-- {{ $products->links() }} --}}
   <!-- /.content-wrapper -->
   
 @endsection

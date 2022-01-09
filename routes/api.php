@@ -5,9 +5,8 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\ProductTypeController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\API\ProductTypeController;
+use App\Http\Controllers\API\UserController;
 
 use App\Models\ProductType;
 use App\Models\User;
@@ -43,10 +42,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/{id}', [ProductController::class, 'update']);
         Route::delete('/{id}', [ProductController::class, 'destroy']);
     });
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
+Route::prefix('user')->group(function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::put('/update/{id}', [UserController::class, 'update']);
+    // mail xac thuc
+    Route::get('/reset-password/{token}', [AuthController::class, 'resetPasswordUser'])->name('user.reset-password');
+    Route::post('/forgot-password', [AuthController::class, 'ForgotPassword']);
 
-
+    //client call api
+    Route::post('/reset-password-client/{token}', [AuthController::class, 'resetPasswordUserClient']);
+});
 
 //Product_type
 Route::prefix('product_types')->group(function () {
