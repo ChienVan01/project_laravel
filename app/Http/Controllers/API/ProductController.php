@@ -1,11 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\API;
-<<<<<<< HEAD
-=======
 
 use App\Http\Controllers\Controller;
->>>>>>> 71ad20411174b5347e90d96effa544905f475c1a
 
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -21,14 +18,8 @@ class ProductController
      */
     public function index()
     {
-<<<<<<< HEAD
-        $response = Product::where('status', '=', 1)->get();
-        return response()->json($response, 200);
-        // return Product::all();
-=======
         $response = Product::where('Status', '=', 1)->get();
         return response()->json($response, 200);
->>>>>>> 71ad20411174b5347e90d96effa544905f475c1a
     }
 
     /**

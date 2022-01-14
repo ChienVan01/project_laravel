@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use \Carbon\Carbon;
 
 class CreateOrdersTable extends Migration
 {
@@ -17,10 +18,10 @@ class CreateOrdersTable extends Migration
             $table->id()->autoIncrement();
             $table->unsignedBigInteger('Payment_id');
             $table->unsignedBigInteger('User_id');
-            $table->unsignedBigInteger('Voucher_id');
+            $table->unsignedBigInteger('Voucher_id')->nullable();
             $table->unsignedBigInteger('OrderStatus_id');
-            $table->date('TimeBuy');
-            $table->Decimal('TotalPrice');
+            $table->date('TimeBuy')->default(Carbon::now());
+            $table->integer('TotalPrice');
             $table->boolean('Status')->default(1);
             $table->timestamps();
         });

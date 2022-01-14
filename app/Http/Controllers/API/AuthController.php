@@ -20,6 +20,7 @@ class AuthController extends Controller
     protected $resetPasswordService;
     public function __construct(ResetPasswordService $resetPasswordService)
     {
+        // $this->middleware('guest');
         $this->resetPasswordService = $resetPasswordService;
     }
     public function register(Request $request)
@@ -47,7 +48,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         $data = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
