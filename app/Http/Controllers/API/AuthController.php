@@ -84,10 +84,12 @@ class AuthController extends Controller
     {
         $user = User::where('Email',$request->Email)->first();
         if ($user ){
-
+            $otp = mt_rand(1000, 9999);
+            $user->otp = (string)$otp;
+            $user->save();
             event(new Registered($user));
             $result = $this->resetPasswordService->sendResetPasswordMail($user);
-                return response()->json(['message' => 'Email khôi phục mật khẩu đã được gửi'],200);
+                return response()->json($user,200);
         } else {
             return response()->json(['message' => 'Không tìm thấy Email'],400);
         }

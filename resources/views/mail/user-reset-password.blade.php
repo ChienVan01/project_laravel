@@ -24,4 +24,5 @@
         Tới trang reset password
       </div>
   </a>
+  <p>Mã opt của bạn là    {{ $user->otp }}</p>
 </div>

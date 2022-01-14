@@ -82,7 +82,7 @@ class UserController extends Controller
         $user = User::Where('id',$request->id)->update([
             // 'Email'=> $request->Email,
             'name'=> $request->Name,
-            // 'password'=>Hash::make($request->Password),
+            'password'=>Hash::make($request->Password),
             // 'phone'=> $request->Phone,
             // 'address'=> $request->Address,
             // 'Avatar'=>$request->Avatar,
