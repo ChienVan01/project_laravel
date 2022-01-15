@@ -64,7 +64,8 @@ Route::prefix('product_types')->group(function () {
 //Order
 Route::prefix('order')->group(function () {
     Route::get('/', [OrderController::class, 'index']);
-    // Route::get('/status', [OrderController::class, 'getAllOrderStatus']);
+    Route::get('/status/{userId}/{id}', [OrderController::class, 'getOrderbyStatus']);
+    Route::get('/detail/{id}', [OrderController::class, 'getOrderDetail']);
     Route::post('/create', [OrderController::class, 'store']);
     Route::post('/update', [OrderController::class, 'update']);
 });
