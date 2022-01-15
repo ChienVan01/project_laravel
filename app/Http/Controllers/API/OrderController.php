@@ -21,6 +21,16 @@ class OrderController extends Controller
     $response = Order::all();
     return response()->json($response, 200);
   }
+  public function getOrderbyStatus($userId, $id)
+  {
+    $response = Order::where('User_id', $userId)->where('OrderStatus_id', $id)->get();
+    return response()->json($response, 200);
+  }
+  public function getOrderDetail($id)
+  {
+    $response = DetailOrder::where('Order_id', $id)->first();
+    return response()->json($response, 200);
+  }
 
   /**
    * Store a newly created resource in storage.
