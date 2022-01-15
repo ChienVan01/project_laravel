@@ -17,9 +17,9 @@ class CreateDetailOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('Order_id');
             $table->unsignedBigInteger('Product_id');
-            $table->Decimal('UnitPrice');
-            $table->Decimal('IntoMoney');
+            $table->string('UnitPrice');
             $table->integer('Quantity');
+            $table->string('IntoMoney');
             $table->boolean('Status')->default(1);
             $table->timestamps();
         });

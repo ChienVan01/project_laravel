@@ -46,8 +46,17 @@ Route::middleware(['checklogin'])->group(function () {
     Route::get('/products/delete/{id}', [ProductController::class, 'destroy']);
     Route::get('/products/edit/{id}', [ProductController::class, 'edit']);
     Route::post('/products/update', [ProductController::class, 'update'])->name('updateProduct');
-    Route::get('/order', [OrderController::class, 'index']);
-    Route::get('/payment', [PaymentController::class, 'index']);
+  
+    Route::prefix('payments')->group(function () {
+        Route::get('/', [PaymentController::class, 'index']);
+        Route::get('/delete/{id}', [PaymentController::class, 'destroy']);
+        Route::get('/restore/{id}', [PaymentController::class, 'restore']);
+    });
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [OrderController::class, 'index']);
+        Route::get('/delete/{id}', [OrderController::class, 'destroy']);
+        Route::get('/restore/{id}', [OrderController::class, 'restore']);
+    });
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/user_type', [UserTypeController::class, 'index']);

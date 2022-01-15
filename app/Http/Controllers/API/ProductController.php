@@ -7,10 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductController
 {
 
-   
+
     /**
      * Display a listing of the resource.
      *
@@ -39,15 +39,15 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {
         $request->validate([
-            'name'=> 'required',
-            'Info'=> 'required',
-            'Price'=> 'required',
-            'Quantity'=> 'required',
-            'Avatar'=> 'required',
-            'Status'=> 'required',
-            'Origin'=> 'required',
+            'name' => 'required',
+            'Info' => 'required',
+            'Price' => 'required',
+            'Quantity' => 'required',
+            'Avatar' => 'required',
+            'Status' => 'required',
+            'Origin' => 'required',
         ]);
         return Product::create($request->all());
     }
@@ -100,6 +100,6 @@ class ProductController extends Controller
      */
     public function search($name)
     {
-        return Product::Where('Name', 'like','%'.$name.'%')->get();
+        return Product::Where('Name', 'like', '%' . $name . '%')->get();
     }
 }

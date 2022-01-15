@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             ['Email' => 'admin@gmail.com',  'Password' => bcrypt('12345'), 'Name' => 'Admin', 'Phone' => '19001000', 'Address' => 'Unknown', 'Avatar' => '', 'UserType_id' => 1],
-            ['Email' => 'chienvan@gmail.com', 'Password' => bcrypt('chien'), 'Name' => 'Chien Van', 'Phone' => '12345678', 'Address' => 'Quận 8', 'Avatar' => '', 'UserType_id' => 2],
+            ['Email' => 'nt9a3chienvanchuong@gmail.com', 'Password' => bcrypt('chien'), 'Name' => 'Chien Van', 'Phone' => '12345678', 'Address' => 'Quận 8', 'Avatar' => '', 'UserType_id' => 2],
             ['Email' => 'mantran@gmail.com',  'Password' => bcrypt('man'), 'Name' => 'Thanh Man', 'Phone' => '12345678', 'Address' => 'My Tho', 'Avatar' => '', 'UserType_id' => 2],
             ['Email' => 'KhoaNguyen@gmail.com', 'Password' => bcrypt('khoa'), 'Name' => 'Dang Khoa', 'Phone' => '12345678', 'Address' => 'Quận 1', 'Avatar' => '', 'UserType_id' => 2],
         ]);

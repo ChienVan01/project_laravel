@@ -52,7 +52,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="/order" class="nav-link">
+                <a href="/orders" class="nav-link">
                   <i class="nav-icon fas fa-th"></i>
                   <p>
                     Order
@@ -84,6 +84,15 @@
                   <i class="nav-icon fas fa-chart-pie"></i>
                   <p>
                     Vouchers
+                  
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/payments" class="nav-link">
+                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <p>
+                    Payments
                   
                   </p>
                 </a>
@@ -140,7 +149,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="/order" class="nav-link">
+              <a href="/orders" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Order
@@ -168,11 +177,19 @@
             </li>
 
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="/vouchers" class="nav-link">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>
                   Vouchers
                 
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/payments" class="nav-link">
+                <i class="nav-icon fas fa-chart-pie"></i>
+                <p>
+                  Payments       
                 </p>
               </a>
             </li>
