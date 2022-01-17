@@ -29,7 +29,7 @@
           <div class="row">
             <div class="col-12 col-sm-6">
               <div class="col-12">
-                <img src="../../dist/img/prod-1.jpg" class="product-image" alt="Product Image">
+                <img src="{{ URL("assets/images/product/$detail->Avatar") }}" class="product-image" alt="Product Image" style="width:600px;height:600px">
               </div>
               <div class="col-12 product-image-thumbs">
                 <div class="product-image-thumb active"><img src="../../dist/img/prod-1.jpg" alt="Product Image"></div>

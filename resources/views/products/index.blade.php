@@ -47,6 +47,9 @@
                           Image
                       </th>
                       <th>
+                        Stock
+                     </th>
+                      <th>
                          Price
                       </th>
                       <th style="width: 8%" class="text-center">
@@ -69,22 +72,11 @@
                           </a>
                           <br/>                
                       </td>
+                      <td>                   
+                          <img alt="{{ $product->Avatar }}" class="" style="width:100px;height:100px ; " src="{{ URL("assets/images/product/$product->Avatar") }}">
+                      </td>
                       <td>
-                          {{-- <ul class="list-inline">
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar2.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar3.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar4.png">
-                              </li>
-                          </ul> --}}
-                          <img alt="{{ $product->Avatar }}" class="table-avatar" src="../../dist/img/avatar.png">
+                        {{ $product->Quantity }}
                       </td>
                       <td class="project_progress">
                        <span>{{ number_format($product->Price) }} VND</span>
@@ -107,19 +99,26 @@
                               </i>
                               Edit
                           </a>
+                          @if($product->Status==1)
                           <a class="btn btn-danger btn-sm" href="/products/delete/{{ $product->id }}">
                               <i class="fas fa-trash">
                               </i>
                               Delete
                           </a>
+                          @else
+                          <a class="btn btn-warning btn-sm" href="/products/restore/{{ $product->id }}">
+                            <i class="fas fa-trash-restore"></i>
+                            </i>
+                            Restore
+                        </a>
+                        @endif
                       </td>
                   </tr>
                     @endforeach
-                  
               </tbody>
-            
+          
           </table>
-    
+          {{ $products->links() }}
         </div>
      
         <!-- /.card-body -->

@@ -34,19 +34,23 @@ Route::get('/register', function () {
     return view('register.index');
 });
 
+
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::middleware(['checklogin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('/');
-    Route::get('/products', [ProductController::class, 'index']);
-    Route::get('/products/create', [ProductController::class, 'create']);
-    Route::post('/products/store', [ProductController::class, 'store'])->name('createProduct');
-    Route::get('/products/detail/{id}', [ProductController::class, 'show']);
-    Route::get('/products/delete/{id}', [ProductController::class, 'destroy']);
-    Route::get('/products/edit/{id}', [ProductController::class, 'edit']);
-    Route::post('/products/update', [ProductController::class, 'update'])->name('updateProduct');
-  
+
+    Route::prefix('products')->group(function () {
+        Route::get('/', [ProductController::class, 'index']);
+        Route::get('/create', [ProductController::class, 'create']);
+        Route::post('/store', [ProductController::class, 'store'])->name('createProduct');
+        Route::get('/detail/{id}', [ProductController::class, 'show']);
+        Route::get('/delete/{id}', [ProductController::class, 'destroy']);
+        Route::get('/restore/{id}', [ProductController::class, 'restore']);
+        Route::get('/edit/{id}', [ProductController::class, 'edit']);
+        Route::post('/update', [ProductController::class, 'update'])->name('updateProduct');
+    });
     Route::prefix('payments')->group(function () {
         Route::get('/', [PaymentController::class, 'index']);
         Route::get('/delete/{id}', [PaymentController::class, 'destroy']);
@@ -63,8 +67,13 @@ Route::middleware(['checklogin'])->group(function () {
     Route::get('/comments', [CommentController::class, 'index']);
     Route::get('/vouchers', [VoucherController::class, 'index']);
     Route::get('/notifies', [NotifyController::class, 'index']);
-    Route::get('/product_types', [ProductTypeController::class, 'index']);
-    Route::get('/product_types/detail/{id}', [ProductTypeController::class, 'show']);
-    Route::get('/product_types/create', [ProductTypeController::class, 'create']);
-    Route::get('/product_types/delete/{id}', [ProductTypeController::class, 'destroy']);
+
+    Route::prefix('product_types')->group(function () {
+        Route::get('/', [ProductTypeController::class, 'index']);
+        Route::get('/detail/{id}', [ProductTypeController::class, 'show']);
+        Route::get('/create', [ProductTypeController::class, 'create']);
+        Route::get('/delete/{id}', [ProductTypeController::class, 'destroy']);
+    });
+
 });
+
