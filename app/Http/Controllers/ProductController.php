@@ -16,9 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $response = Product::where('status', '=', 1)->get();
-        // return response()->json($response, 200);
-        $products =  Product::all();
+        $products = Product::all();
+        //$products =  Product::paginate(15);
         return view('products.index',compact('products'));
     }
 

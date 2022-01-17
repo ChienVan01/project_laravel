@@ -8,11 +8,7 @@ use Illuminate\Http\Request;
 
 class VoucherController extends Controller
 {
-    public function getAllVoucher()
-    {
-        $response =  Voucher::all();
-        return response()->json($response, 200);
-    }
+
     /**
      * Display a listing of the resource.
      *

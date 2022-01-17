@@ -123,16 +123,21 @@
                       </td>
                   </tr>
                     @endforeach
+                  
               </tbody>
+            
           </table>
+    
         </div>
+     
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
-
+     
     </section>
     <!-- /.content -->
   </div>
+        {{-- {{ $products->links() }} --}}
   <!-- /.content-wrapper -->
   
 @endsection

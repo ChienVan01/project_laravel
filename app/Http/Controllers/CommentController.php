@@ -9,11 +9,7 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function getAllCommentByID()
-    {
-        $response = comment::where('id', $id);
-        return response()->json($response, 200);
-    }
+
     /**
      * Display a listing of the resource.
      *

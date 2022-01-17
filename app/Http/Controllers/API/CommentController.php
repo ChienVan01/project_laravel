@@ -15,7 +15,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        
+        $response =  comment::where('User_id', 2);
+        return response()->json($response, 200);
     }
 
     /**
@@ -37,10 +38,19 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        $response = comment::where('User_id', $id);
+        
+    }
+    public function getAllCommentByProductID($id)
+    {
+        $response = comment::where('Product_id','=', $id)->join('users', 'comments.User_id', '=', 'users.id')->get();
+
         return response()->json($response, 200);
     }
-
+    public function getAllCommentByUserID($id)
+    {
+        $response = comment::where('User_id', '=', $id)->get();
+        return response()->json($response, 200);
+    }
     /**
      * Update the specified resource in storage.
      *

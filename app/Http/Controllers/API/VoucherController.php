@@ -4,9 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Voucher;
+
 
 class VoucherController extends Controller
 {
+    public function getAllVoucher($id)
+    {
+        $response =  Voucher::where('User_id', $id)->get();
+        return response()->json($response, 200);
+    }
     /**
      * Display a listing of the resource.
      *

@@ -3,12 +3,11 @@
 use App\Http\Controllers\API\AuthController;
 
 use App\Http\Controllers\API\ProductController;
-
+use App\Http\Controllers\API\ProductTypeController;
+use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\VoucherController;
-
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\NotifyController;
-
 use App\Models\ProductType;
 use App\Models\User;
 
@@ -36,17 +35,26 @@ Route::get('products/{id}', [ProductController::class ,'show']);
 Route::get('/products/search/{name}', [ProductController::class, 'search']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-
+   
     Route::get('/profile', [AuthController::class ,'getProfile']);
     Route::prefix('products')->group(function () {
         Route::post('/',[ProductController::class, 'store']);
         Route::put('/{id}',[ProductController::class, 'update']);
         Route::delete('/{id}',[ProductController::class, 'destroy']);
     });
-    Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout',[AuthController::class, 'logout']);
 });
 
+Route::prefix('user')->group(function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::put('/update/{id}', [UserController::class, 'update']);
+    // mail xac thuc
+    Route::get('/reset-password/{token}', [AuthController::class,'resetPasswordUser'])->name('user.reset-password');
+    Route::post('/forgot-password', [AuthController::class,'ForgotPassword']);
 
+    //client call api
+    Route::post('/reset-password-client/{token}', [AuthController::class,'resetPasswordUserClient']);
+});
 
 //Product_type
 Route::prefix('product_type')->group(function () {
@@ -71,25 +79,21 @@ Route::prefix('delivery_method')->group(function () {
 Route::prefix('user_type')->group(function () {
     Route::get('/', [UserTypeController::class, 'getAllUserType']);
 });
-//User
-Route::prefix('users')->group(function () {
-    Route::get('/', [UserController::class, 'getAllUserMember']);
-});
+
 //Comment
 Route::prefix('comments')->group(function () {
-    Route::get('/{id}', [CommentController::class, 'show']);
-
+    Route::get('/', [CommentController::class, 'index']);   
+    Route::get('/user/{id}', [CommentController::class, 'getAllCommentByUserID']);
+    Route::get('/product/{id}', [CommentController::class, 'getAllCommentByProductID']);
 });
 //Voucher
 Route::prefix('vouchers')->group(function () {
-    Route::get('/', [VoucherController::class, 'getAllVoucher']);
+    Route::get('/user/{id}', [VoucherController::class, 'getAllVoucher']);
 });
 //Notify
 Route::prefix('notifies')->group(function () {
-    Route::get('/', [NotifyController::class, 'index']);   
+    Route::get('/user/{id}', [NotifyController::class, 'getAllNotify']);   
     Route::get('/detail/{id}', [NotifyController::class, 'show']);
     Route::get('/delete/{id}', [NotifyController::class, 'destroy']);
 });
-
-
 
