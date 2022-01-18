@@ -106,21 +106,24 @@
                         @endif  
                       </td>
                       <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="#">
+                          <a class="btn btn-primary btn-sm" href="/comments/detail/{{ $comment->id }}">
                               <i class="fas fa-folder">
                               </i>
                               View
                           </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
+                          @if ($comment->Status ==1)
+                          <a class="btn btn-danger btn-sm" href="/comments/delete/{{ $comment->id }}">
+                            <i class="fas fa-trash">
+                            </i>
+                            Delete
                           </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
+                          @else
+                          <a class="btn btn-danger btn-sm" href="/comments/restore/{{ $comment->id }}">
+                            <i class="fas fa-refresh">
+                            </i>
+                            Restore
                           </a>
+                          @endif
                       </td>
                   </tr>
                                      

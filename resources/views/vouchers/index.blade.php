@@ -43,9 +43,12 @@
                       <th style="width: 20%">
                             Name
                       </th>
-                      <th style="width: 30%">
+                      <th style="width: 15%">
                           Image
                       </th>
+                      <th style="width: 15%">
+                        Expiry Date
+                    </th>
                       <th>
                          Owner
                       </th>
@@ -69,6 +72,7 @@
                           </a>
                           <br/>                
                       </td>
+                      
                       <td>
                           {{-- <ul class="list-inline">
                               <li class="list-inline-item">
@@ -86,7 +90,13 @@
                           </ul> --}}
                           <img alt="#" class="table-avatar" src="../../dist/img/avatar.png">
                       </td>
-
+                      <td>
+                        <a>
+                          {{-- {{dd($product)}} --}}
+                        {{ $voucher->EXD }}
+                      </a>
+                      <br/>  
+                      </td>
                       <td class="project_progress">
                         @foreach ($users as $user)
                            @if($voucher->User_id == $user->id)
@@ -103,21 +113,30 @@
                         @endif
                       </td>
                       <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="#">
+                          <a class="btn btn-primary btn-sm" href="/vouchers/detail/{{ $voucher->id }}">
                               <i class="fas fa-folder">
                               </i>
                               View
                           </a>
-                          <a class="btn btn-info btn-sm" href="#">
+                          <a class="btn btn-info btn-sm" href="/vouchers/edit/{{ $voucher->id }}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
                           </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
+                          @if ($voucher->Status==1)
+                          <a class="btn btn-danger btn-sm" href="/vouchers/delete/{{ $voucher->id }}">
+                            <i class="fas fa-trash">
+                            </i>
+                            Delete
+                        </a>
+                        @else
+                        <a class="btn btn-success btn-sm" href="/vouchers/restore/{{ $voucher->id }}">
+                          <i class="fas fa-refresh">
+                          </i>
+                          Restore
+                      </a>
+                          @endif
+                          
                       </td>
                   </tr>
                   @endforeach   

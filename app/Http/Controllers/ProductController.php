@@ -109,7 +109,13 @@ class ProductController extends Controller
         $product->save();
         return redirect('products');
     }
-
+    public function restore($id)
+    {
+        $product = Product::find($id);
+        $product->Status = 1;
+        $product->save();
+        return redirect('products');
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -88,21 +88,29 @@
                        @endif                      
                      </td>
                      <td class="project-actions text-right">
-                         <a class="btn btn-primary btn-sm" href="#">
+                         <a class="btn btn-primary btn-sm" href="/notifies/detail/{{ $notify->id }}">
                              <i class="fas fa-folder">
                              </i>
                              View
                          </a>
-                         <a class="btn btn-info btn-sm" href="#">
+                         <a class="btn btn-info btn-sm" href="/notifies/edit/{{ $notify->id }}">
                              <i class="fas fa-pencil-alt">
                              </i>
                              Edit
                          </a>
-                         <a class="btn btn-danger btn-sm" href="#">
-                             <i class="fas fa-trash">
-                             </i>
-                             Delete
-                         </a>
+                         @if ($notify->Status==1)
+                         <a class="btn btn-danger btn-sm" href="/notifies/delete/{{ $notify->id }}">
+                           <i class="fas fa-trash">
+                           </i>
+                           Delete
+                       </a>
+                       @else
+                       <a class="btn btn-success btn-sm" href="/notifies/restore/{{ $notify->id }}">
+                         <i class="fas fa-refresh">
+                         </i>
+                         Restore
+                     </a>
+                         @endif
                      </td>
                  </tr>
                 @endforeach   

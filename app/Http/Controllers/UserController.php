@@ -76,7 +76,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $product = User::Where('id',$request->id)->update([
+        $user = User::Where('id',$request->id)->update([
             'Email'=> $request->Email,
             'Name'=> $request->Name,
             'Password'=> $request->Password,
@@ -95,8 +95,18 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
-    {
-        //
+    public function destroy($id)
+    {       
+        $user = User::find($id);
+        $user->Status = 0;
+        $user->save();
+        return redirect('users');
+    }
+    public function restore($id)
+    {       
+        $user = User::find($id);
+        $user->Status = 1;
+        $user->save();
+        return redirect('users');
     }
 }
