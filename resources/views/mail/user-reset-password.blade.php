@@ -1,6 +1,6 @@
 <p style="font-size:30px; color:red">Đây là cái mail nè</p>
 <div style="margin: 10px">
-  <a href="{{ $user->reset_password_link }}">
+  <!-- <a href="{{ $user->reset_password_link }}">
     <div style=" display: inline-block;
     font-weight: 400;
     line-height: 1.5;
@@ -23,5 +23,6 @@
     border-color: #198754;">
         Tới trang reset password
       </div>
-  </a>
+  </a> -->
+  <p>Mã OPT của bạn là {{ $user->otp }}</p>
 </div>

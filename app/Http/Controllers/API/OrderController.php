@@ -112,7 +112,7 @@ class OrderController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request,)
+  public function update(Request $request)
   {
     // dd($request->id);
     $order = Order::Where('id', $request->id)->update([
@@ -125,10 +125,6 @@ class OrderController extends Controller
       // 'UserType_id'=> $request->UserType_id,
       // 'Status'=>$request->Status,
     ]);
-
-
-
-
     return response()->json($order, 200);
   }
 

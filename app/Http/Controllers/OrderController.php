@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderStatus;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -25,8 +26,9 @@ class OrderController extends Controller
     }
     public function index()
     {
-        $order = Order::all();   
-        return view('order.index',compact('order'));
+        $orders = Order::all();
+
+        return view('orders.index',compact('orders'));
     }
 
     /**
@@ -71,6 +73,16 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        $order->Status = 0;
+        $order->save();
+        return redirect('orders');
+    }
+    public function restore($id)
+    {
+        $order = Order::find($id);
+        $order->Status = 1;
+        $order->save();
+        return redirect('orders');
     }
 }

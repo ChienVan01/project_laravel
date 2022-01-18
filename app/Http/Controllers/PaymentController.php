@@ -19,8 +19,8 @@ class PaymentController extends Controller
     }
     public function index()
     {
-        $payment = Payment::all();
-        return view('payment.index',compact('payment'));
+        $payments = Payment::all();
+        return view('payment.index',compact('payments'));
     }
 
     /**
@@ -65,6 +65,16 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $payment = Payment::find($id);
+        $payment->Status = 0;
+        $payment->save();
+        return redirect('payments');
+    }
+    public function restore($id)
+    {
+        $payment = Payment::find($id);
+        $payment->Status = 1;
+        $payment->save();
+        return redirect('payments');
     }
 }
