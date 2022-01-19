@@ -58,6 +58,8 @@ Route::middleware(['checklogin'])->group(function () {
     });
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index']);
+        Route::get('/detail/{id}', [OrderController::class, 'show']);
+        Route::get('/check/{id}', [OrderController::class, 'check']);
         Route::get('/delete/{id}', [OrderController::class, 'destroy']);
         Route::get('/restore/{id}', [OrderController::class, 'restore']);
     });
