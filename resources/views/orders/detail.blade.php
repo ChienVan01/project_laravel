@@ -38,7 +38,7 @@
                 <div class="col-12">
                   <h4>
                     <img src="{{ URL('assets/images/logo_chu_s.png') }}" alt="AdminLTE Logo" class="brand-image" style="width:20px"> ShopGear
-                    <small class="float-right">Date: {{ $orders->TimeBuy }}  </small>
+                    <small class="float-right">Date: {{ $order->TimeBuy }}  </small>
                   </h4>
                 </div>
                 <!-- /.col -->
@@ -46,24 +46,16 @@
               <!-- info row -->
               <div class="row invoice-info">
                 <!-- /.col -->
-                <div class="col-sm-4 invoice-col">
+                <div class="col-sm-12 invoice-col">
                   To
                   <address>
-                    <strong> {{ DB::table('users')->where('id',$orders->User_id )->value('Name'); }}  </strong><br>
-                    {{ DB::table('users')->where('id',$orders->User_id )->value('Address'); }}<br>
-                    Phone:  {{ DB::table('users')->where('id',$orders->User_id )->value('Phone');}}<br>
-                    Email:  {{ DB::table('users')->where('id',$orders->User_id )->value('Email');}}
+                    <strong> {{ DB::table('users')->where('id',$order->User_id )->value('Name'); }}  </strong><br>
+                    {{ DB::table('users')->where('id',$order->User_id )->value('Address'); }}<br>
+                    Phone:  {{ DB::table('users')->where('id',$order->User_id )->value('Phone');}}<br>
+                    Email:  {{ DB::table('users')->where('id',$order->User_id )->value('Email');}}
                   </address>
                 </div>
-                <!-- /.col -->
-                <div class="col-sm-8 invoice-col">
-                  <b>Invoice #{{ $orders->id }}</b><br>
-                  <br>
-                  <b>Order ID:</b> {{ $orders->id }}<br>
-                  <b>Payment Due:</b> 2/22/2014<br>
-                  <b>Account:</b> 968-34567
-                </div>
-                <!-- /.col -->
+                
               </div>
               <!-- /.row -->
 
@@ -73,23 +65,31 @@
                   <table class="table table-striped">
                     <thead>
                     <tr>
-                      <th>Qty</th>
+                      <th>Quantity</th>
                       <th>Product</th>
-                      <th>Serial #</th>
-                      <th>Description</th>
+                      <th>Unit Price</th>
+                      <th>Payment Method</th>
                       <th>Subtotal</th>
                     </tr>
                     </thead>
                     <tbody>            
                     <tr>
-                      {{ dd($orders) }}
-                      <td>1</td>
-                      <td>Call of Duty</td>
-                      <td>455-981-221</td>
-                      <td>El snort testosterone trophy driving gloves handsome</td>
-                      <td>$64.50</td>
+                      @php
+                        $total = 0;
+                      @endphp
+                      {{-- {{ dd($orders) }} --}}
+                      @foreach ($details as $detail)
+                      <td>{{ $detail->Quantity }}</td>
+                      <td> {{ DB::table('products')->where('id',$detail->Product_id )->value('Name');}}</td>
+                      <td>{{number_format($detail->UnitPrice , 0, '', '.')  }} VND</td>
+                      <td>{{ DB::table('payments')->where('id',$order->Payment_id )->value('Name');}}</td>
+                      <td>{{number_format($detail->UnitPrice * $detail->Quantity , 0, '', '.')  }} VND
+                      </td>
                     </tr>
-                    
+                      @php                  
+                        $total += $detail->IntoMoney;
+                      @endphp
+                    @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -101,10 +101,10 @@
                 <!-- accepted payments column -->
                 <div class="col-6">
                   <p class="lead">Payment Methods:</p>
-                  <img src="../../dist/img/credit/visa.png" alt="Visa">
-                  <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-                  <img src="../../dist/img/credit/american-express.png" alt="American Express">
-                  <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
+                  <img src="{{ URL('template/admin/dist/img/credit/visa.png') }}" alt="Visa">
+                  <img src="{{ URL('template/admin/dist/img/credit/mastercard.png') }}" alt="Mastercard">
+                  <img src="{{ URL('template/admin/dist/img/credit/american-express.png') }}" alt="American Express">
+                  <img src="{{ URL('template/admin/dist/img/credit/paypal2.png') }}" alt="Paypal">
 
                   <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
                     Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
@@ -113,6 +113,7 @@
                   </p>
                 </div>
                 <!-- /.col -->
+                
                 <div class="col-6">
                   <p class="lead">Amount Due 2/22/2014</p>
 
@@ -120,19 +121,17 @@
                     <table class="table">
                       <tr>
                         <th style="width:50%">Subtotal:</th>
-                        <td>$250.30</td>
-                      </tr>
-                      <tr>
-                        <th>Tax (9.3%)</th>
-                        <td>$10.34</td>
+                        <td>{{number_format($total , 0, '', '.')}} VND</td>
                       </tr>
                       <tr>
                         <th>Shipping:</th>
-                        <td>$5.80</td>
+                        <td>            
+                          35.000 VND
+                        </td>
                       </tr>
                       <tr>
                         <th>Total:</th>
-                        <td>$265.24</td>
+                        <td>{{number_format($total+35000 , 0, '', '.')}} VND</td>
                       </tr>
                     </table>
                   </div>
@@ -141,18 +140,8 @@
               </div>
               <!-- /.row -->
 
-              <!-- this row will not appear when printing -->
-              <div class="row no-print">
-                <div class="col-12">
-                  <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                    Payment
-                  </button>
-                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                    <i class="fas fa-download"></i> Generate PDF
-                  </button>
-                </div>
-              </div>
+             
+              
             </div>
         
             <!-- /.invoice -->

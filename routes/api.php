@@ -7,7 +7,9 @@ use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ProductTypeController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\OrderController;
-
+use App\Http\Controllers\API\VoucherController;
+use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\NotifyController;
 use App\Models\ProductType;
 use App\Models\User;
 
@@ -76,4 +78,26 @@ Route::prefix('payment')->group(function () {
 //Delivery_Method
 Route::prefix('delivery_method')->group(function () {
     Route::get('/', [DeliveryController::class, 'getAllDeliveryMethod']);
+});
+
+//UserType
+Route::prefix('user_type')->group(function () {
+    Route::get('/', [UserTypeController::class, 'getAllUserType']);
+});
+
+//Comment
+Route::prefix('comments')->group(function () {
+    Route::get('/', [CommentController::class, 'index']);
+    Route::get('/user/{id}', [CommentController::class, 'getAllCommentByUserID']);
+    Route::get('/product/{id}', [CommentController::class, 'getAllCommentByProductID']);
+});
+//Voucher
+Route::prefix('vouchers')->group(function () {
+    Route::get('/user/{id}', [VoucherController::class, 'getAllVoucher']);
+});
+//Notify
+Route::prefix('notifies')->group(function () {
+    Route::get('/user/{id}', [NotifyController::class, 'getAllNotify']);
+    Route::get('/detail/{id}', [NotifyController::class, 'show']);
+    Route::get('/delete/{id}', [NotifyController::class, 'destroy']);
 });

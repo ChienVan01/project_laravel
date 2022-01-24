@@ -23,7 +23,7 @@ class OrderController extends Controller
   }
   public function getOrderbyStatus($userId, $id)
   {
-    $response = Order::where('User_id', $userId)->where('OrderStatus_id', $id)->get();
+    $response = Order::where('User_id', $userId)->where('OrderStatus_id', $id)->join('detail_orders', 'orders.id', '=', 'detail_orders.Order_id')->join('products', 'detail_orders.Product_id', '=', 'products.id')->get();
     return response()->json($response, 200);
   }
   public function getOrderDetail($id)

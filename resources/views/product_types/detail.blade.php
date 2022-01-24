@@ -40,16 +40,14 @@
                       <th style="width: 1%">
                           #
                       </th>
-                      <th style="width: 20%">
+                      <th style="width: 40%">
                             Name
                       </th>
-                      <th style="width: 30%">
-                          Image
-                      </th>
-                      <th style="width: 8%" class="text-center">
+                     
+                      <th style="width: 40%" class="text-center">
                           Status
                       </th>
-                      <th style="width: 20%">
+                      <th style="width: 19%">Action
                       </th>
                   </tr>
               </thead>
@@ -67,9 +65,7 @@
                           <br/>                
                       </td>
                      
-                      <td>
-                          <img alt="img" class="table-avatar" src="../../dist/img/avatar.png">
-                      </td>
+                      
                       <td class="project-state">
                         @if ($d->Status==1)
                           <span class="badge badge-success">Active</span>
@@ -77,13 +73,7 @@
                           <span class="badge badge-danger">Deactive</span>
                         @endif                      
                       </td>
-                      <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="/products/detail/{{ $d->id }}">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-
+                      <td class="project-actions">
                           <a class="btn btn-danger btn-sm" href="#">
                               <i class="fas fa-trash">
                               </i>

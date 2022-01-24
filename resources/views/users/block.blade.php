@@ -1,5 +1,5 @@
 @extends('master')
-@section('title', 'Thêm loại sản phẩm')
+@section('title', 'Cập nhật sản phẩm')
 @section('content')
   
    <!-- Content Wrapper. Contains page content -->
@@ -9,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Thêm loại sản phẩm</h1>
+            <h1>Cập nhật sản phẩm</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Thêm loại sản phẩm</li>
+              <li class="breadcrumb-item active">Cập nhật sản phẩm</li>
             </ol>
           </div>
         </div>
@@ -25,38 +25,43 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row  d-flex justify-content-center">
+
             <div class="card card-primary w-50">
               <div class="card-header">
                 <h3 class="card-title">Form</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ route('createProductType')}}" method="post" enctype="multipart/form-data">
+              <form action="{{ route('updateProduct',['id' => $product->id]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="Name">Name</label>
-                    <input type="text" class="form-control" name="Name" placeholder="Nhập tên loại sản phẩm">
+                    <input type="text" class="form-control" name="Name" placeholder="Nhập tên sản phẩm" value="{{ $product->Name }}">
                   </div>
-                 
-                  <div class="form-group">
-                    <label for="Parent_id">Cate Parent</label>
-                    <select class="form-control" name="Parent_id">
-                      <option value="" selected >Chọn Loại Sản Phẩm Cha</option> 
-                        @foreach($ProductType as $item)
-                          @if($item->Parent_id == null){
-                            <option value="{{ $item->id }}" >{{ $item->Name }}</option> 
-                          }
-                          @endif
-                        @endforeach 
-                    </select>
-                  </div> 
                   <div class="form-group">
                     <label for="Status">Status</label>
                     <select class="form-control" name="Status">
+                      @if($product->Status == 1) 
                         <option value="1" selected>Active</option> 
-                        <option value="0">Deactive</option>         
+                        <option value="0">Deactive</option> 
+                      @else  
+                        <option value="1">Active</option> 
+                        <option value="0" selected>Deactive</option>
+                      @endif
                     </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="Info">Info</label>
+                    <input type="text" class="form-control" name="Info" placeholder="Nhập thông tin sản phẩm" value="{{ $product->Info }}">
+                  </div>
+                  <div class="form-group">
+                    <label for="Origin">Origin</label>
+                    <input type="text" class="form-control" name="Origin" placeholder="Nhập tên thương hiệu" value="{{ $product->Origin }}">
+                  </div>
+                  <div class="form-group">
+                    <label for="Price">Price</label>
+                    <input type="text" class="form-control" name="Price" placeholder="Nhập tên thương hiệu" value="{{ $product->Price }}">
                   </div>
                 </div>
                 <!-- /.card-body -->

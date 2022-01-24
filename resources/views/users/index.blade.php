@@ -43,9 +43,12 @@
                       <th style="width: 20%">
                             Name
                       </th>
-                      <th style="width: 30%">
+                      <th style="width: 15%">
                           Image
                       </th>
+                      <th style="width: 15%">
+                        Permission
+                    </th>
                       <th>
                          Email
                       </th>
@@ -88,6 +91,14 @@
                           <img alt="{{ $user->Avatar }}" class="table-avatar" src="../../dist/img/avatar.png">
                       </td>
                       <td class="project_progress">
+                        @if ( $user->UserType_id == 1)
+                        <span>Administrator</span>
+                        @else
+                        <span>Member</span>
+                        @endif
+                        
+                       </td>
+                      <td class="project_progress">
                        <span>{{ $user->Email }}</span>
                       </td>
                       <td class="project-state">
@@ -104,11 +115,19 @@
                               View
                           </a>
 
-                          <a class="btn btn-danger btn-sm" href="#">
+                          @if($user->Status==1)
+                          <a class="btn btn-danger btn-sm" href="/users/block/{{ $user->id }}">
                               <i class="fas fa-trash">
                               </i>
                               Block
                           </a>
+                          @else
+                          <a class="btn btn-success btn-sm" href="/users/unblock/{{ $user->id }}">
+                            <i class="fas fa-refresh">
+                            </i>
+                            Unblock
+                        </a>
+                        @endif
                       </td>
                   </tr>
                  @endforeach   

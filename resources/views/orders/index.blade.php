@@ -350,5 +350,9 @@
   </div>
   <!-- /.content-wrapper -->
 
-  @endsection
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 
+@endsection

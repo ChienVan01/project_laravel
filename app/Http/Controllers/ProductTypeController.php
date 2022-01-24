@@ -28,7 +28,8 @@ class ProductTypeController extends Controller
 
     public function index()
     {
-        $ProductType =  ProductType::all();
+        $ProductType =  ProductType::where('Parent_id', '=', null )->get();
+        // dd($ProductType);
         return view('product_types.index',compact('ProductType'));
     }
 
@@ -38,8 +39,8 @@ class ProductTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('product_types.create');
+    { $ProductType =  ProductType::all();
+        return view('product_types.create',compact('ProductType'));
     }
 
     /**
@@ -50,7 +51,10 @@ class ProductTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //chua lam 
+        $product_types = new ProductType();
+        $input = $request->all();
+        $product_types->create($input);
+        return redirect('product_types')->with('success', 'Product Type created successfully.');
     }
 
     /**
@@ -61,7 +65,7 @@ class ProductTypeController extends Controller
      */
     public function show($id)
     {
-        $detail =  Product::where('ProductType_id', '=', $id)->get();
+        $detail =  ProductType::where('Parent_id', '=', $id)->get();
         return view('product_types.detail',compact('detail'));
     }
 

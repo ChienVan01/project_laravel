@@ -50,8 +50,10 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $orders =  DetailOrder::where('Order_id', $id)->first();
-        return view('orders.detail',compact('orders'));
+        $order = Order::find($id);
+        $users = User::where('id',$order->User_id)->get();
+        $details =  DetailOrder::where('Order_id', $id)->get();
+        return view('orders.detail',compact('details','order','users'));
     }
 
     /**

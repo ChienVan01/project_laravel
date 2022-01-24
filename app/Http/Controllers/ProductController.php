@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
-   
+
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +18,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(15);
-      
-        //$products =  Product::paginate(15);
-        return view('products.index',compact('products'));
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -31,7 +29,7 @@ class ProductController extends Controller
     public function create()
     {
         $product_types = ProductType::all();
-        return view('products.create',compact('product_types'));
+        return view('products.create', compact('product_types'));
     }
 
     /**
@@ -41,16 +39,16 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {
         $request->validate([
-            'Name'=> 'required',
-            'Info'=> 'required',
-            'Origin'=> 'required',
-            'ProductType_id'=> 'required',
-            'Quantity'=> 'required',
-            'Price'=> 'required',
+            'Name' => 'required',
+            'Info' => 'required',
+            'Origin' => 'required',
+            'ProductType_id' => 'required',
+            'Quantity' => 'required',
+            'Price' => 'required',
             // 'Avatar'=>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'Status'=> 'required',
+            'Status' => 'required',
         ]);
         // $nameImage = $request->Avatar->store('images','public');
         // $product = new Product();
@@ -64,7 +62,7 @@ class ProductController extends Controller
         // $product->Avatar = $request->Avatar;
         // $product->Status = $request->Status;
 
-        
+
         $input = $request->all();
         if ($image = $request->file('Avatar')) {
             $destinationPath = 'assets/images/product/';
@@ -74,7 +72,7 @@ class ProductController extends Controller
         }
         $product = new Product();
         $product->create($input);
-        return redirect('products')->with('success','Product created successfully.');
+        return redirect('products')->with('success', 'Product created successfully.');
     }
 
     /**
@@ -86,7 +84,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $detail = Product::find($id);
-        return view('products.detail',compact('detail'));
+
+        return view('products.detail', compact('detail'));
     }
 
     /**
@@ -97,8 +96,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+
         $product = Product::find($id);
-        return view('products.edit',compact('product'));
+        $ProductType =  ProductType::all();
+        $name_product_types = ProductType::find($id);
+        return view('products.edit', compact('product', 'ProductType', 'name_product_types'));
     }
 
     /**
@@ -109,15 +111,33 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {  
-       $product = Product::Where('id',$request->id)->update([
-           'Name'=> $request->Name,
-           'Status'=>$request->Status,
-           'Price'=>$request->Price,
+    {      
+        //Store Image In Folder
+        if ($request->hasFile('Avatar')) {
+            $file = $request->file('Avatar');
+            $Avatar = $file->getClientOriginalName();
+            $file->move('assets/images/product/', $Avatar);
+            if (file_exists(public_path($Avatar =  $file->getClientOriginalName()))) {
+                unlink(public_path($Avatar));
+            };
+            $product = Product::Where('id', $request->id)->update([
+                'Name' => $request->Name,
+                'Origin' => $request->Origin,
+                'Price' => $request->Price,
+                'ProductType_id' => $request->ProductType_id,
+                'Status' => $request->Status,
+                'Avatar' => $Avatar,
+            ]);
+        }
+        $product = Product::Where('id', $request->id)->update([
+            'Name' => $request->Name,
+            'Origin' => $request->Origin,
+            'Price' => $request->Price,
+            'ProductType_id' => $request->ProductType_id,
+            'Status' => $request->Status,
         ]);
-     
-        return redirect('products');
-        
+    
+        return redirect('products')->with('Success', 'Data Updated Successfully!');
     }
     public function destroy($id)
     {
@@ -133,7 +153,6 @@ class ProductController extends Controller
         $product->save();
         return redirect('products');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -142,6 +161,6 @@ class ProductController extends Controller
      */
     public function search($name)
     {
-        return Product::Where('Name', 'like','%'.$name.'%')->get();
+        return Product::Where('Name', 'like', '%' . $name . '%')->get();
     }
 }

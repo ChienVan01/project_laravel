@@ -63,10 +63,10 @@ class NotifyController extends Controller
      * @param  \App\Models\notify  $notify
      * @return \Illuminate\Http\Response
      */
-    public function edit(notify $notify)
+    public function edit($id)
     {
         $notify = notify::find($id);
-        return view('notifys.edit',compact('notify'));
+        return view('notifies.edit',compact('notify'));
     }
 
     /**
@@ -76,9 +76,15 @@ class NotifyController extends Controller
      * @param  \App\Models\notify  $notify
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, notify $notify)
+    public function update(Request $request)
     {
-        //
+        $notify = notify::Where('id',$request->id)->update([
+            'Name'=> $request->Name,
+            'Content'=>$request->Content,         
+            'Status'=>$request->Status,
+         ]);
+      
+         return redirect('notifies');
     }
 
     /**
@@ -91,6 +97,13 @@ class NotifyController extends Controller
     {
         $notify = notify::find($id);
         $notify->Status = 0;
+        $notify->save();
+        return redirect('notifies');
+    }
+    public function restore($id)
+    {
+        $notify = notify::find($id);
+        $notify->Status = 1;
         $notify->save();
         return redirect('notifies');
     }

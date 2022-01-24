@@ -43,12 +43,16 @@
                       <th style="width: 20%">
                             Name
                       </th>
-                      <th style="width: 30%">
+                      <th style="width: 20%">
                           Image
                       </th>
+                      <th  class="text-center">
+                        Category
+                     </th>
                       <th>
                         Stock
                      </th>
+                     
                       <th>
                          Price
                       </th>
@@ -74,6 +78,9 @@
                       </td>
                       <td>                   
                           <img alt="{{ $product->Avatar }}" class="" style="width:100px;height:100px ; " src="{{ URL("assets/images/product/$product->Avatar") }}">
+                      </td>
+                      <td class="text-center">
+                        {{ DB::table('product_types')->where('id',$product->ProductType_id )->value('Name');}}
                       </td>
                       <td>
                         {{ $product->Quantity }}
