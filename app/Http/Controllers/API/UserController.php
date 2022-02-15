@@ -71,14 +71,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {   
-        // $product = Product::Where('id',$request->id)->update([
-        //     'Name'=> $request->Name,
-        //     'Status'=>$request->Status,
-        //     'Price'=>$request->Price,
-        //  ]);
-      
-            
+    {       
         $user = User::Where('id',$request->id)->update([
             // 'Email'=> $request->Email,
             'name'=> $request->Name,
@@ -90,6 +83,23 @@ class UserController extends Controller
             // 'Status'=>$request->Status,
         ]);
         return response()->json($user, 200);
+    }
+    public function updatePassword(Request $request)
+    {       
+       
+        
+        $user = User::Where('id',$request->id)->first();
+        // return response()->json([$request->Password,$user->Password], 200);
+        if (is_null($user) || !Hash::check($request->password, $user->Password)) {
+            return response()->json('', 401);
+        }
+        // User::Where('id',$request->id)->update([
+        //     'password'=>Hash::make($request->Password),
+          
+        // ]);
+        return response()->json($user,200);
+       
+       
     }
 
     /**

@@ -50,6 +50,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::put('/update/{id}', [UserController::class, 'update']);
+    Route::put('/updatePassword/{id}', [UserController::class, 'updatePassword']);
     // mail xac thuc
     Route::get('/reset-password/{token}', [AuthController::class, 'resetPasswordUser'])->name('user.reset-password');
     Route::post('/forgot-password', [AuthController::class, 'ForgotPassword']);
