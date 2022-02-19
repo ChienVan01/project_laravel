@@ -34,6 +34,7 @@ Route::get('/register', function () {
     return view('register.index');
 });
 Route::get('products/search', [ProductController::class, 'search'])->name('searchProduct');
+Route::get('product_types/search', [ProductTypeController::class, 'search'])->name('searchProductTypes');
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');

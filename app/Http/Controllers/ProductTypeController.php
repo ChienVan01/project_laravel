@@ -105,4 +105,12 @@ class ProductTypeController extends Controller
         $product_type->save();
         return redirect('/product_types');
     }
+    public function search(Request $request)
+    {
+        $product_type =  ProductType::all();
+        $searchItem = $request->input('name');
+        $searchResults = ProductType::Where('Name', '=', $searchItem )->get();
+        // return response()->json($searchProductTypes , 200);
+        return view('product_types.index', compact('searchResults','searchItem','product_type'));
+    }
 }
