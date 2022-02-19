@@ -159,8 +159,12 @@ class ProductController extends Controller
      * @param  str $name
      * @return \Illuminate\Http\Response
      */
-    public function search($name)
+    public function search(Request $request)
     {
-        return Product::Where('Name', 'like', '%' . $name . '%')->get();
+        $searchItem = $request->input('name');
+        $searchResults = Product::Where('Name', 'like', '%' . $searchItem . '%')->get();
+        $products = Product::paginate(15);
+        // return response()->json($searchResults, 200);
+        return view('products.index', compact('searchResults','searchItem','products'));
     }
 }
