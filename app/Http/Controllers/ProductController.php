@@ -18,8 +18,6 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(15);
-
-        //$products =  Product::paginate(15);
         return view('products.index', compact('products'));
     }
 
@@ -86,6 +84,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $detail = Product::find($id);
+
         return view('products.detail', compact('detail'));
     }
 
@@ -97,8 +96,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+
         $product = Product::find($id);
-        return view('products.edit', compact('product'));
+        $ProductType =  ProductType::all();
+        $name_product_types = ProductType::find($id);
+        return view('products.edit', compact('product', 'ProductType', 'name_product_types'));
     }
 
     /**
@@ -109,14 +111,33 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {
+    {      
+        //Store Image In Folder
+        if ($request->hasFile('Avatar')) {
+            $file = $request->file('Avatar');
+            $Avatar = $file->getClientOriginalName();
+            $file->move('assets/images/product/', $Avatar);
+            if (file_exists(public_path($Avatar =  $file->getClientOriginalName()))) {
+                unlink(public_path($Avatar));
+            };
+            $product = Product::Where('id', $request->id)->update([
+                'Name' => $request->Name,
+                'Origin' => $request->Origin,
+                'Price' => $request->Price,
+                'ProductType_id' => $request->ProductType_id,
+                'Status' => $request->Status,
+                'Avatar' => $Avatar,
+            ]);
+        }
         $product = Product::Where('id', $request->id)->update([
             'Name' => $request->Name,
-            'Status' => $request->Status,
+            'Origin' => $request->Origin,
             'Price' => $request->Price,
+            'ProductType_id' => $request->ProductType_id,
+            'Status' => $request->Status,
         ]);
-
-        return redirect('products');
+    
+        return redirect('products')->with('Success', 'Data Updated Successfully!');
     }
     public function destroy($id)
     {

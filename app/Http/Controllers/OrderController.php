@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailOrder;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\User;
@@ -27,7 +28,6 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::all();
-
         return view('orders.index',compact('orders'));
     }
 
@@ -50,7 +50,10 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+        $users = User::where('id',$order->User_id)->get();
+        $details =  DetailOrder::where('Order_id', $id)->get();
+        return view('orders.detail',compact('details','order','users'));
     }
 
     /**
@@ -64,6 +67,12 @@ class OrderController extends Controller
     {
         //
     }
+    public function check($id){
+        $order = Order::find($id);
+        $order->OrderStatus_id = 2;
+        $order->save();
+        return redirect('orders');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -74,15 +83,9 @@ class OrderController extends Controller
     public function destroy($id)
     {
         $order = Order::find($id);
-        $order->Status = 0;
+        $order->OrderStatus_id = 3;
         $order->save();
         return redirect('orders');
     }
-    public function restore($id)
-    {
-        $order = Order::find($id);
-        $order->Status = 1;
-        $order->save();
-        return redirect('orders');
-    }
+  
 }

@@ -15,11 +15,11 @@ class OrderStatusSeeder extends Seeder
     public function run()
     {
         DB::table('order_statuses')->insert([
-            ['Name' => 'Chưa thanh toán'],
-            ['Name' => 'Đã thanh toán'],
+            ['Name' => 'Chờ xác nhận'],
             ['Name' => 'Đã xác nhận'],
-            ['Name' => 'Đã hủy'],
             ['Name' => 'Đã hoàn thành'],
+            ['Name' => 'Đã hủy'],
+         
         ]);
     }
 }

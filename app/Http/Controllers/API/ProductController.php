@@ -21,6 +21,18 @@ class ProductController
         $response = Product::where('Status', '=', 1)->get();
         return response()->json($response, 200);
     }
+    public function filterByPrice($sort)
+    {
+        $response = Product::orderBy('Price', $sort)->get();
+        // dd($response);
+        return response()->json($response, 200);
+    }
+    public function filterByPriceByProductType($id, Request $request)
+    {
+        $response = Product::where('ProductType_id', '=', $id)->orderBy('Price', 'ASC')->get();
+        // dd($response);
+        return response()->json($response, 200);
+    }
 
     /**
      * Show the form for creating a new resource.

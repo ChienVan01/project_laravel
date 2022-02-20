@@ -114,16 +114,8 @@ class OrderController extends Controller
    */
   public function update(Request $request)
   {
-    // dd($request->id);
     $order = Order::Where('id', $request->id)->update([
-      // 'Email'=> $request->Email,
       'OrderStatus_id' => $request->OrderStatus_id,
-      // 'password'=>Hash::make($request->Password),
-      // 'phone'=> $request->Phone,
-      // 'address'=> $request->Address,
-      // 'Avatar'=>$request->Avatar,
-      // 'UserType_id'=> $request->UserType_id,
-      // 'Status'=>$request->Status,
     ]);
     return response()->json($order, 200);
   }

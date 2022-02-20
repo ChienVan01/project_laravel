@@ -22,111 +22,112 @@
     </div><!-- /.container-fluid -->
   </section>
 
-  <!-- Main content -->
-  <section class="content">
-    @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-      <p>{{ $message }}</p>
+  <!-- Default box -->
+  <div class="card">
+    <div class="card-body p-0">
+      <table class="table table-striped projects">
+        <thead>
+          <tr>
+            <th style="width: 1%">
+              #
+            </th>
+            <th style="width: 20%">
+              Name
+            </th>
+            <th style="width: 20%">
+              Image
+            </th>
+            <th class="text-center">
+              Category
+            </th>
+            <th>
+              Stock
+            </th>
+
+            <th>
+              Price
+            </th>
+            <th style="width: 8%" class="text-center">
+              Status
+            </th>
+            <th style="width: 20%">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($products as $product)
+          <tr>
+            <td>
+              {{ $product->id }}
+            </td>
+            <td>
+              <a>
+                {{-- {{dd($product)}} --}}
+                {{ $product->Name }}
+              </a>
+              <br />
+            </td>
+            <td>
+              <img alt="{{ $product->Avatar }}" class="" style="width:100px;height:100px ; " src="{{ URL("assets/images/product/$product->Avatar") }}">
+            </td>
+            <td class="text-center">
+              {{ DB::table('product_types')->where('id',$product->ProductType_id )->value('Name');}}
+            </td>
+            <td>
+              {{ $product->Quantity }}
+            </td>
+            <td class="project_progress">
+              <span>{{ number_format($product->Price) }} VND</span>
+            </td>
+            <td class="project-state">
+              @if($product->Status == 1)
+              <span class="badge badge-success">Active</span>
+              @else
+              <span class="badge badge-danger">Deactive</span>
+              @endif
+            </td>
+            <td class="project-actions text-right">
+              <a class="btn btn-primary btn-sm" href="/products/detail/{{ $product->id }}">
+                <i class="fas fa-folder">
+                </i>
+                View
+              </a>
+              <a class="btn btn-info btn-sm" href="/products/edit/{{ $product->id }}">
+                <i class="fas fa-pencil-alt">
+                </i>
+                Edit
+              </a>
+              @if($product->Status==1)
+              <a class="btn btn-danger btn-sm" href="/products/delete/{{ $product->id }}">
+                <i class="fas fa-trash">
+                </i>
+                Delete
+              </a>
+              @else
+              <a class="btn btn-warning btn-sm" href="/products/restore/{{ $product->id }}">
+                <i class="fas fa-trash-restore"></i>
+                </i>
+                Restore
+              </a>
+              @endif
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+
+      </table>
+      {{ $products->links() }}
     </div>
-    {{-- @else <p>fail</p> --}}
-    @endif
 
-    <!-- Default box -->
-    <div class="card">
-      <div class="card-body p-0">
-        <table class="table table-striped projects">
-          <thead>
-            <tr>
-              <th style="width: 1%">
-                #
-              </th>
-              <th style="width: 20%">
-                Name
-              </th>
-              <th style="width: 30%">
-                Image
-              </th>
-              <th>
-                Stock
-              </th>
-              <th>
-                Price
-              </th>
-              <th style="width: 8%" class="text-center">
-                Status
-              </th>
-              <th style="width: 20%">
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($products as $product)
-            <tr>
-              <td>
-                {{ $product->id }}
-              </td>
-              <td>
-                <a>
-                  {{-- {{dd($product)}} --}}
-                  {{ $product->Name }}
-                </a>
-                <br />
-              </td>
-              <td>
-                <img alt="{{ $product->Avatar }}" class="" style="width:100px;height:100px ; " src="{{ URL("assets/images/product/$product->Avatar") }}">
-              </td>
-              <td>
-                {{ $product->Quantity }}
-              </td>
-              <td class="project_progress">
-                <span>{{ number_format($product->Price) }} VND</span>
-              </td>
-              <td class="project-state">
-                @if($product->Status == 1)
-                <span class="badge badge-success">Active</span>
-                @else
-                <span class="badge badge-danger">Deactive</span>
-                @endif
-              </td>
-              <td class="project-actions text-right">
-                <a class="btn btn-primary btn-sm" href="/products/detail/{{ $product->id }}">
-                  <i class="fas fa-folder">
-                  </i>
-                  View
-                </a>
-                <a class="btn btn-info btn-sm" href="/products/edit/{{ $product->id }}">
-                  <i class="fas fa-pencil-alt">
-                  </i>
-                  Edit
-                </a>
-                @if($product->Status==1)
-                <a class="btn btn-danger btn-sm" href="/products/delete/{{ $product->id }}">
-                  <i class="fas fa-trash">
-                  </i>
-                  Delete
-                </a>
-                @else
-                <a class="btn btn-warning btn-sm" href="/products/restore/{{ $product->id }}">
-                  <i class="fas fa-trash-restore"></i>
-                  </i>
-                  Restore
-                </a>
-                @endif
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
+    <!-- /.card-body -->
+  </div>
 
-        </table>
-        {{ $products->links() }}
-      </div>
+  <!-- /.card-body -->
+</div>
+<!-- /.card -->
 
-      <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
-
-  </section>
-  <!-- /.content -->
+</section>
+<!-- /.content -->
 </div>
 {{-- {{ $products->links() }} --}}
 <!-- /.content-wrapper -->

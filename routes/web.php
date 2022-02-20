@@ -58,6 +58,8 @@ Route::middleware(['checklogin'])->group(function () {
     });
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index']);
+        Route::get('/detail/{id}', [OrderController::class, 'show']);
+        Route::get('/check/{id}', [OrderController::class, 'check']);
         Route::get('/delete/{id}', [OrderController::class, 'destroy']);
         Route::get('/restore/{id}', [OrderController::class, 'restore']);
     });
@@ -72,6 +74,7 @@ Route::middleware(['checklogin'])->group(function () {
         Route::get('/', [ProductTypeController::class, 'index']);
         Route::get('/detail/{id}', [ProductTypeController::class, 'show']);
         Route::get('/create', [ProductTypeController::class, 'create']);
+        Route::post('/create', [ProductTypeController::class, 'store'])->name('createProductType');;
         Route::get('/delete/{id}', [ProductTypeController::class, 'destroy']);
     });
 });
