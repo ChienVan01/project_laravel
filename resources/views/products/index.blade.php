@@ -11,118 +11,303 @@
         <div class="col-sm-6">
           <h1>Danh Sách Sản Phẩm</h1>
           <a class="btn btn-primary" type="button" href="/products/create">Thêm Sản Phẩm</a>
+
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 flex-column d-flex">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href={{ route('/') }}>Trang Chủ</a></li>
             <li class="breadcrumb-item active">Danh Sách Sản Phẩm</li>
           </ol>
+
+          <form method="get" action="{{ route('searchProduct') }}" class="form-inline mr-auto">
+            <div class="d-flex ">
+              <input type="text" name="name" class="form-control mr-3" value="{{ isset($searchResults) ? $searchItem : ''  }}" placeholder="Bạn cần tìm gì " aria-label="Search" aria-describedby="basic-addon1" style="width:70%">
+              <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+          </form>
+
         </div>
       </div>
     </div><!-- /.container-fluid -->
   </section>
 
-  <!-- Default box -->
-  <div class="card">
-    <div class="card-body p-0">
-      <table class="table table-striped projects">
-        <thead>
-          <tr>
-            <th style="width: 1%">
-              #
-            </th>
-            <th style="width: 20%">
-              Name
-            </th>
-            <th style="width: 20%">
-              Image
-            </th>
-            <th class="text-center">
-              Category
-            </th>
-            <th>
-              Stock
-            </th>
-
-            <th>
-              Price
-            </th>
-            <th style="width: 8%" class="text-center">
-              Status
-            </th>
-            <th style="width: 20%">
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($products as $product)
-          <tr>
-            <td>
-              {{ $product->id }}
-            </td>
-            <td>
-              <a>
-                {{-- {{dd($product)}} --}}
-                {{ $product->Name }}
-              </a>
-              <br />
-            </td>
-            <td>
-              <img alt="{{ $product->Avatar }}" class="" style="width:100px;height:100px ; " src="{{ URL("assets/images/product/$product->Avatar") }}">
-            </td>
-            <td class="text-center">
-              {{ DB::table('product_types')->where('id',$product->ProductType_id )->value('Name');}}
-            </td>
-            <td>
-              {{ $product->Quantity }}
-            </td>
-            <td class="project_progress">
-              <span>{{ number_format($product->Price) }} VND</span>
-            </td>
-            <td class="project-state">
-              @if($product->Status == 1)
-              <span class="badge badge-success">Active</span>
-              @else
-              <span class="badge badge-danger">Deactive</span>
-              @endif
-            </td>
-            <td class="project-actions text-right">
-              <a class="btn btn-primary btn-sm" href="/products/detail/{{ $product->id }}">
-                <i class="fas fa-folder">
-                </i>
-                View
-              </a>
-              <a class="btn btn-info btn-sm" href="/products/edit/{{ $product->id }}">
-                <i class="fas fa-pencil-alt">
-                </i>
-                Edit
-              </a>
-              @if($product->Status==1)
-              <a class="btn btn-danger btn-sm" href="/products/delete/{{ $product->id }}">
-                <i class="fas fa-trash">
-                </i>
-                Delete
-              </a>
-              @else
-              <a class="btn btn-warning btn-sm" href="/products/restore/{{ $product->id }}">
-                <i class="fas fa-trash-restore"></i>
-                </i>
-                Restore
-              </a>
-              @endif
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-
-      </table>
-      {{ $products->links() }}
+  <!-- Main content -->
+  <section class="content">
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success">
+      <p>{{ $message }}</p>
     </div>
+    {{-- @else <p>fail</p> --}}
+    @endif
 
-    <!-- /.card-body -->
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-body p-0">
+        <table class="table table-striped projects">
+          <thead>
+            <tr>
+              <th style="width: 1%">
+                #
+              </th>
+              <th style="width: 20%">
+                Name
+              </th>
+              <th style="width: 20%">
+                Image
+              </th>
+              <th class="text-center">
+                Category
+              </th>
+              <th>
+                Stock
+              </th>
+
+              <th>
+                Price
+              </th>
+              <th style="width: 8%" class="text-center">
+                Status
+              </th>
+              <th style="width: 20%">
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @if(isset($searchResults))
+            @if ($searchResults-> isEmpty())
+            <h2>Sorry, no results found for the term <b>"{{ $searchterm }}"</b>.</h2>
+            @else
+
+            @foreach ($searchResults as $item)
+            <tr>
+              <td>
+                {{ $item->id }}
+              </td>
+              <td>
+                <a>
+                  {{-- {{dd($product)}} --}}
+                  {{ $item->Name }}
+                </a>
+                <br />
+              </td>
+              <td>
+                <img alt="{{ $item->Avatar }}" class="" style="width:100px;height:100px ; " src="{{ URL("assets/images/product/$item->Avatar") }}">
+              </td>
+              <td class="text-center">
+                {{ DB::table('product_types')->where('id',$item->ProductType_id )->value('Name');}}
+              </td>
+              <td>
+                {{ $item->Quantity }}
+              </td>
+              <td class="project_progress">
+                <span>{{ number_format($item->Price) }} VND</span>
+              </td>
+              <td class="project-state">
+                @if($item->Status == 1)
+                <span class="badge badge-success">Active</span>
+                @else
+                <span class="badge badge-danger">Deactive</span>
+                @endif
+              </td>
+              <td class="project-actions text-right">
+                <a class="btn btn-primary btn-sm" href="/products/detail/{{ $item->id }}">
+                  <i class="fas fa-folder">
+                  </i>
+                  View
+                </a>
+                <a class="btn btn-info btn-sm" href="/products/edit/{{ $item->id }}">
+                  <i class="fas fa-pencil-alt">
+                  </i>
+                  Edit
+                </a>
+                @if($item->Status==1)
+                <a class="btn btn-danger btn-sm" href="/products/delete/{{ $item->id }}">
+                  <i class="fas fa-trash">
+                  </i>
+                  Delete
+                </a>
+                @else
+                <a class="btn btn-warning btn-sm" href="/products/restore/{{ $item->id }}">
+                  <i class="fas fa-trash-restore"></i>
+                  </i>
+                  Restore
+                </a>
+                @endif
+              </td>
+            </tr>
+            @endforeach
+
+            @endif
+            @else
+            @foreach($products as $product)
+            <tr>
+              <td>
+                {{ $product->id }}
+              </td>
+              <td>
+                <a>
+                  {{-- {{dd($product)}} --}}
+                  {{ $product->Name }}
+                </a>
+                <br />
+              </td>
+              <td>
+                <img alt="{{ $product->Avatar }}" class="" style="width:100px;height:100px ; " src="{{ URL("assets/images/product/$product->Avatar") }}">
+              </td>
+              <td class="text-center">
+                {{ DB::table('product_types')->where('id',$product->ProductType_id )->value('Name');}}
+              </td>
+              <td>
+                {{ $product->Quantity }}
+              </td>
+              <td class="project_progress">
+                <span>{{ number_format($product->Price) }} VND</span>
+              </td>
+              <td class="project-state">
+                @if($product->Status == 1)
+                <span class="badge badge-success">Active</span>
+                @else
+                <span class="badge badge-danger">Deactive</span>
+                @endif
+              </td>
+              <td class="project-actions text-right">
+                <a class="btn btn-primary btn-sm" href="/products/detail/{{ $product->id }}">
+                  <i class="fas fa-folder">
+                  </i>
+                  View
+                </a>
+                <a class="btn btn-info btn-sm" href="/products/edit/{{ $product->id }}">
+                  <i class="fas fa-pencil-alt">
+                  </i>
+                  Edit
+                </a>
+                @if($product->Status==1)
+                <a class="btn btn-danger btn-sm" href="/products/delete/{{ $product->id }}">
+                  <i class="fas fa-trash">
+                  </i>
+                  Delete
+                </a>
+                @else
+                <a class="btn btn-warning btn-sm" href="/products/restore/{{ $product->id }}">
+                  <i class="fas fa-trash-restore"></i>
+                  </i>
+                  Restore
+                </a>
+                @endif
+              </td>
+            </tr>
+            @endforeach
+            @endif
+          </tbody>
+
+        </table>
+        {{ $products->links() }}
+      </div>
+    </div>
+</div><!-- /.container-fluid -->
+</section>
+
+<!-- Default box -->
+<div class="card">
+  <div class="card-body p-0">
+    <table class="table table-striped projects">
+      <thead>
+        <tr>
+          <th style="width: 1%">
+            #
+          </th>
+          <th style="width: 20%">
+            Name
+          </th>
+          <th style="width: 20%">
+            Image
+          </th>
+          <th class="text-center">
+            Category
+          </th>
+          <th>
+            Stock
+          </th>
+
+          <th>
+            Price
+          </th>
+          <th style="width: 8%" class="text-center">
+            Status
+          </th>
+          <th style="width: 20%">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($products as $product)
+        <tr>
+          <td>
+            {{ $product->id }}
+          </td>
+          <td>
+            <a>
+              {{-- {{dd($product)}} --}}
+              {{ $product->Name }}
+            </a>
+            <br />
+          </td>
+          <td>
+            <img alt="{{ $product->Avatar }}" class="" style="width:100px;height:100px ; " src="{{ URL("assets/images/product/$product->Avatar") }}">
+          </td>
+          <td class="text-center">
+            {{ DB::table('product_types')->where('id',$product->ProductType_id )->value('Name');}}
+          </td>
+          <td>
+            {{ $product->Quantity }}
+          </td>
+          <td class="project_progress">
+            <span>{{ number_format($product->Price) }} VND</span>
+          </td>
+          <td class="project-state">
+            @if($product->Status == 1)
+            <span class="badge badge-success">Active</span>
+            @else
+            <span class="badge badge-danger">Deactive</span>
+            @endif
+          </td>
+          <td class="project-actions text-right">
+            <a class="btn btn-primary btn-sm" href="/products/detail/{{ $product->id }}">
+              <i class="fas fa-folder">
+              </i>
+              View
+            </a>
+            <a class="btn btn-info btn-sm" href="/products/edit/{{ $product->id }}">
+              <i class="fas fa-pencil-alt">
+              </i>
+              Edit
+            </a>
+            @if($product->Status==1)
+            <a class="btn btn-danger btn-sm" href="/products/delete/{{ $product->id }}">
+              <i class="fas fa-trash">
+              </i>
+              Delete
+            </a>
+            @else
+            <a class="btn btn-warning btn-sm" href="/products/restore/{{ $product->id }}">
+              <i class="fas fa-trash-restore"></i>
+              </i>
+              Restore
+            </a>
+            @endif
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+
+    </table>
+    {{ $products->links() }}
   </div>
 
   <!-- /.card-body -->
+</div>
+
+<!-- /.card-body -->
 </div>
 <!-- /.card -->
 

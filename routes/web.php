@@ -33,7 +33,8 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('register.index');
 });
-
+Route::get('products/search', [ProductController::class, 'search'])->name('searchProduct');
+Route::get('product_types/search', [ProductTypeController::class, 'search'])->name('searchProductTypes');
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -51,6 +52,7 @@ Route::middleware(['checklogin'])->group(function () {
         Route::get('/edit/{id}', [ProductController::class, 'edit']);
         Route::post('/update', [ProductController::class, 'update'])->name('updateProduct');
     });
+ 
     Route::prefix('payments')->group(function () {
         Route::get('/', [PaymentController::class, 'index']);
         Route::get('/delete/{id}', [PaymentController::class, 'destroy']);
