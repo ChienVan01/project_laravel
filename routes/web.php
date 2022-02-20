@@ -25,7 +25,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::get('/login', function () {
     return view('login.index');
 })->name('login');
@@ -66,7 +65,7 @@ Route::middleware(['checklogin'])->group(function () {
         Route::get('/restore/{id}', [OrderController::class, 'restore']);
     });
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::get('/user_type', [UserTypeController::class, 'index']);
     Route::get('/comments', [CommentController::class, 'index']);
     Route::get('/vouchers', [VoucherController::class, 'index']);

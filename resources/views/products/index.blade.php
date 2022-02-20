@@ -13,15 +13,15 @@
             <a class="btn btn-primary" type="button" href="/products/create">Thêm Sản Phẩm</a>
             
           </div>
-          <div class="col-sm-6 flex-column d-flex">
+          <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href={{ route('/') }}>Trang Chủ</a></li>
               <li class="breadcrumb-item active">Danh Sách Sản Phẩm</li>
             </ol>
             
-            <form method="get" action="{{ route('searchProduct') }}" class="form-inline mr-auto">
-              <div class="d-flex ">
-                <input type="text" name="name" class="form-control mr-3" value="{{ isset($searchResults) ? $searchItem : ''  }}" placeholder="Bạn cần tìm gì " aria-label="Search" aria-describedby="basic-addon1" style="width:70%">
+            <form method="get" action="{{ route('searchProduct') }}" class="form-inline mr-auto" style="width:100%">
+              <div class="d-flex " style="width:100%">
+                <input type="text" name="name" class="form-control mr-3" value="{{ isset($searchResults) ? $searchItem : ''  }}" placeholder="Bạn cần tìm gì " aria-label="Search" aria-describedby="basic-addon1" style="width:100%">
                 <button  class="btn btn-primary" type="submit">Search</button>
               </div>
             </form>

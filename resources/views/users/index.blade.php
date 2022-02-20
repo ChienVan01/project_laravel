@@ -10,7 +10,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Danh Sách Người Dùng</h1>
-            {{-- <a class="btn btn-primary" type="button" href="/products/create">Thêm Sản Phẩm</a> --}}
+        
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -74,21 +74,13 @@
                           <br/>                
                       </td>
                       <td>
-                          {{-- <ul class="list-inline">
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar2.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar3.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar4.png">
-                              </li>
-                          </ul> --}}
-                          <img alt="{{ $user->Avatar }}" class="table-avatar" src="../../dist/img/avatar.png">
+                  
+                        @if($user->Avatar !==null)
+                        <img alt="{{ $user->Avatar }}" style="width:100px;height:100px ; "  src="{{ URL("assets/images/avatar/$user->Avatar") }}">
+                        @else 
+                        <img alt="{{ $user->Avatar }}" style="width:100px;height:100px ; "  src="{{ URL("assets/images/avatar/default.jpg") }}">
+                        @endif
+
                       </td>
                       <td class="project_progress">
                         @if ( $user->UserType_id == 1)
