@@ -73,7 +73,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = User::Where('id', $request->id)->update([
-            // 'Email'=> $request->Email,
+            'email' => $request->Email,
             'name' => $request->Name,
             'password' => Hash::make($request->Password),
             // 'phone'=> $request->Phone,

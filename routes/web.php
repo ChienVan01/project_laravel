@@ -25,7 +25,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::get('/login', function () {
     return view('login.index');
 })->name('login');
@@ -52,25 +51,31 @@ Route::middleware(['checklogin'])->group(function () {
         Route::get('/edit/{id}', [ProductController::class, 'edit']);
         Route::post('/update', [ProductController::class, 'update'])->name('updateProduct');
     });
- 
+
     Route::prefix('payments')->group(function () {
         Route::get('/', [PaymentController::class, 'index']);
         Route::get('/delete/{id}', [PaymentController::class, 'destroy']);
         Route::get('/restore/{id}', [PaymentController::class, 'restore']);
     });
     Route::prefix('orders')->group(function () {
-        Route::get('/', [OrderController::class, 'index']);
+        Route::get('/', [OrderController::class, 'index'])->name('orders');
         Route::get('/detail/{id}', [OrderController::class, 'show']);
         Route::get('/check/{id}', [OrderController::class, 'check']);
         Route::get('/delete/{id}', [OrderController::class, 'destroy']);
         Route::get('/restore/{id}', [OrderController::class, 'restore']);
     });
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+
     Route::get('/user_type', [UserTypeController::class, 'index']);
     Route::get('/comments', [CommentController::class, 'index']);
     Route::get('/vouchers', [VoucherController::class, 'index']);
     Route::get('/notifies', [NotifyController::class, 'index']);
+
+    Route::prefix('users')->group(function () {
+        Route::get('/block/{id}', [UserController::class, 'block']);
+        Route::get('/unblock/{id}', [UserController::class, 'unblock']);
+    });
 
     Route::prefix('product_types')->group(function () {
         Route::get('/', [ProductTypeController::class, 'index']);

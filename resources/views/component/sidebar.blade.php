@@ -52,7 +52,7 @@
 
               <li class="nav-item">
                 <a href="/orders" class="nav-link">
-                  <i class="nav-icon fas fa-th"></i>
+                  <i class="nav-icon fas fa-receipt"></i>
                   <p>
                     Order
                   </p>
@@ -70,7 +70,7 @@
 
               <li class="nav-item">
                 <a href="/product_types" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <i class="nav-icon fas fa-folder"></i>
                   <p>
                     Product Type
                    
@@ -80,7 +80,7 @@
 
               <li class="nav-item">
                 <a href="/vouchers" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <i class="nav-icon fas fa-percent"></i>
                   <p>
                     Vouchers
                   
@@ -99,7 +99,7 @@
 
               <li class="nav-item">
                 <a href="/notifies" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <i class="nav-icon fas fa-solid fa-bell"></i>
                   <p>
                     Notifications
                    
@@ -109,7 +109,7 @@
                 
               <li class="nav-item">
                 <a href="/comments" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <i class="nav-icon fas fa-comment"></i>
                   <p>
                     Comments
                    
@@ -120,7 +120,7 @@
                               
               <li class="nav-item">
                 <a href="/users" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <i class="nav-icon fas fa-user"></i>
                   <p>
                     Users
                    
@@ -177,7 +177,7 @@
 
             <li class="nav-item">
               <a href="/vouchers" class="nav-link">
-                <i class="nav-icon fas fa-chart-pie"></i>
+                <i class="nav-icon fas fa-tag"></i>
                 <p>
                   Vouchers
                 
@@ -186,7 +186,7 @@
             </li>
             <li class="nav-item">
               <a href="/payments" class="nav-link">
-                <i class="nav-icon fas fa-chart-pie"></i>
+                <i class="nav-icon fas fa-credit-card"></i>
                 <p>
                   Payments       
                 </p>

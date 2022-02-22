@@ -50,17 +50,6 @@ class ProductController extends Controller
             // 'Avatar'=>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'Status' => 'required',
         ]);
-        // $nameImage = $request->Avatar->store('images','public');
-        // $product = new Product();
-        // $product->id=$request->id;
-        // $product->Name = $request->Name;
-        // $product->Info = $request->Info;
-        // $product->Origin = $request->Origin;
-        // $product->ProductType_id = $request->ProductType_id;
-        // $product->Quantity = $request->Quantity;
-        // $product->Price = $request->Price;
-        // $product->Avatar = $request->Avatar;
-        // $product->Status = $request->Status;
 
 
         $input = $request->all();
@@ -111,7 +100,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {      
+    {
         //Store Image In Folder
         if ($request->hasFile('Avatar')) {
             $file = $request->file('Avatar');
@@ -136,7 +125,7 @@ class ProductController extends Controller
             'ProductType_id' => $request->ProductType_id,
             'Status' => $request->Status,
         ]);
-    
+
         return redirect('products')->with('Success', 'Data Updated Successfully!');
     }
     public function destroy($id)
@@ -165,6 +154,6 @@ class ProductController extends Controller
         $searchResults = Product::Where('Name', 'like', '%' . $searchItem . '%')->get();
         $products = Product::paginate(15);
         // return response()->json($searchResults, 200);
-        return view('products.index', compact('searchResults','searchItem','products'));
+        return view('products.index', compact('searchResults', 'searchItem', 'products'));
     }
 }

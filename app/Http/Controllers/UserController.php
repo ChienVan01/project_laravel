@@ -64,7 +64,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('users.edit',compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -76,17 +76,17 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user = User::Where('id',$request->id)->update([
-            'Email'=> $request->Email,
-            'Name'=> $request->Name,
-            'Password'=> $request->Password,
-            'Phone'=> $request->Phone,
-            'Address'=> $request->Address,
-            'Avatar'=>$request->Avatar,
-            'UserType_id'=> $request->UserType_id,
-            'Status'=>$request->Status,
-         ]);     
-         return redirect('users');        
+        $user = User::Where('id', $request->id)->update([
+            'Email' => $request->Email,
+            'Name' => $request->Name,
+            'Password' => $request->Password,
+            'Phone' => $request->Phone,
+            'Address' => $request->Address,
+            'Avatar' => $request->Avatar,
+            'UserType_id' => $request->UserType_id,
+            'Status' => $request->Status,
+        ]);
+        return redirect('users');
     }
 
     /**
@@ -95,15 +95,17 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {       
+    public function block($id)
+    {
         $user = User::find($id);
-        $user->Status = 0;
-        $user->save();
+        if ($user->UserType_id == 2) {
+            $user->Status = 0;
+            $user->save();
+        }
         return redirect('users');
     }
-    public function restore($id)
-    {       
+    public function unblock($id)
+    {
         $user = User::find($id);
         $user->Status = 1;
         $user->save();

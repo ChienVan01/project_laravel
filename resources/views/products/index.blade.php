@@ -14,13 +14,13 @@
 
         </div>
         <div class="col-sm-6 flex-column d-flex">
-          <ol class="breadcrumb float-sm-right">
+          <ol class="breadcrumb float-sm-right" style=" justify-content: flex-end;">
             <li class="breadcrumb-item"><a href={{ route('/') }}>Trang Chủ</a></li>
             <li class="breadcrumb-item active">Danh Sách Sản Phẩm</li>
           </ol>
 
-          <form method="get" action="{{ route('searchProduct') }}" class="form-inline mr-auto">
-            <div class="d-flex ">
+          <form method="get" action="{{ route('searchProduct') }}" class="form-inline mr-auto" style="width: 100%; ">
+            <div class="d-flex " style="width: 100%; justify-content: flex-end;">
               <input type="text" name="name" class="form-control mr-3" value="{{ isset($searchResults) ? $searchItem : ''  }}" placeholder="Bạn cần tìm gì " aria-label="Search" aria-describedby="basic-addon1" style="width:70%">
               <button class="btn btn-primary" type="submit">Search</button>
             </div>
@@ -208,7 +208,7 @@
 </section>
 
 <!-- Default box -->
-<div class="card">
+<!-- <div class="card">
   <div class="card-body p-0">
     <table class="table table-striped projects">
       <thead>
@@ -238,8 +238,8 @@
           <th style="width: 20%">
           </th>
         </tr>
-      </thead>
-      <tbody>
+      </thead> -->
+<!-- <tbody>
         @foreach($products as $product)
         <tr>
           <td>
@@ -298,13 +298,13 @@
           </td>
         </tr>
         @endforeach
-      </tbody>
+      </tbody> -->
 
-    </table>
-    {{ $products->links() }}
-  </div>
+</table>
+{{ $products->links() }}
+</div>
 
-  <!-- /.card-body -->
+<!-- /.card-body -->
 </div>
 
 <!-- /.card-body -->
